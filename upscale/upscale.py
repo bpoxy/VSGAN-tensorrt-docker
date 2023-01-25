@@ -40,7 +40,7 @@ for model in globals()['models'].split(','):
 ###############################################
 clip = vs.core.resize.Bicubic(clip, format=vs.YUV420P8, matrix_s="709")
 
-if bool(globals().get('degrain', False)):
+if eval(globals().get('degrain', 'False')):
     super = core.mv.Super(clip)
     mvbw = core.mv.Analyse(super, isb=True, delta=1, overlap=4)    
     mvbw2 = core.mv.Analyse(super, isb=True, delta=2, overlap=4)
