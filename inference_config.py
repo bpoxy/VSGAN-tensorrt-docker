@@ -11,6 +11,7 @@ from src.rife import RIFE
 from src.IFRNet import IFRNet
 from src.GMFupSS import GMFupSS
 from src.GMFSS_union import GMFSS_union
+from vsgmfss_union import gmfss_union
 from src.eisai import EISAI
 from src.film import FILM
 from src.M2M import M2M
@@ -18,6 +19,7 @@ from src.sepconv_enhanced import sepconv
 from src.IFUNet import IFUNet
 from src.stmfnet import STMFNet
 from src.rife_trt import rife_trt
+from src.cain_trt import cain_trt
 
 # upscale imports
 from src.upscale_inference import upscale_inference
@@ -36,6 +38,8 @@ from src.scunet import scunet_inference
 
 from src.scene_detect import scene_detect
 
+from src.color_transfer import vs_color_match
+
 core = vs.core
 vs_api_below4 = vs.__api_version__.api_major < 4
 core = vs.core
@@ -45,7 +49,7 @@ core.std.LoadPlugin(path="/usr/lib/x86_64-linux-gnu/libffms2.so")
 core.std.LoadPlugin(path="/usr/local/lib/libvstrt.so")
 core.std.LoadPlugin(path="/usr/local/lib/libscxvid.so")
 core.std.LoadPlugin(path="/usr/local/lib/libwwxd.so")
-
+core.std.LoadPlugin(path="/usr/local/lib/x86_64-linux-gnu/libawarpsharp2.so")
 
 def inference_clip(video_path="", clip=None):
     # ddfi is passing clip
@@ -57,9 +61,15 @@ def inference_clip(video_path="", clip=None):
         # vfr video (automatically set num and den)
         # clip = core.ffms2.Source(source=video_path, fpsnum = -1, fpsden = 1, cache=False)
 
+        # lsmash
+        # clip = core.lsmas.LWLibavSource(source=video_path)
+        
         # resizing with descale
         # Debilinear, Debicubic, Delanczos, Despline16, Despline36, Despline64, Descale
         #clip = core.descale.Debilinear(clip, 1280, 720)
+
+    # Need reference for doing color transfer
+    original_clip = clip
 
     ###############################################
     # SIMILARITY
@@ -119,9 +129,9 @@ def inference_clip(video_path="", clip=None):
     # IFRNet: model="small" or "large"
     # model_inference = IFRNet(model="small", fp16=False)
 
+    # use gmfss_union instead for more speed
     # model_inference = GMFupSS(partial_fp16=False)
-
-    #model_inference = GMFSS_union(partial_fp16=False)
+    # model_inference = GMFSS_union(partial_fp16=False)
 
     # model_inference = EISAI() # 960x540
 
@@ -141,6 +151,10 @@ def inference_clip(video_path="", clip=None):
     #)
 
     # clip = rife_trt(clip, multi = 2, scale = 1.0, device_id = 0, num_streams = 2, engine_path = "/workspace/tensorrt/rife46.engine")
+
+    # clip = cain_trt(clip, device_id = 0, num_streams = 4, engine_path = "/workspace/tensorrt/rvp.engine")
+
+    # clip = gmfss_union(clip, num_streams=4, trt=True, factor_num=2, ensemble=False, sc=True, trt_cache_path="/workspace/tensorrt/")
 
     ######
     # UPSCALING WITH TENSORRT
@@ -261,6 +275,20 @@ def inference_clip(video_path="", clip=None):
     #     num_streams=3,
     # )
 
+    ####
+    # Color Transfer
+    ####
+
+    # original_clip = original_clip.resize.Spline16(format=vs.RGB24, matrix_in_s="470bg")
+    # clip = clip.resize.Spline16(format=vs.RGB24, matrix_in_s="470bg")
+    # clip = vs_color_match(clip, original_clip, method="mkl")
+
+    ###
+    # Other
+    ###
+    # does not accept rgb clip, convert to yuv first
+    # clip = core.warp.AWarpSharp2(clip, thresh=128, blur=2, type=0, depth=[16, 8, 8], chroma=0, opt=True, planes=[0,1,2], cplace="mpeg1")
+    
     ###############################################
     # OUTPUT
     ###############################################

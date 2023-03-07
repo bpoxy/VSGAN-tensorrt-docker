@@ -51,14 +51,14 @@ Currently working networks:
 - GMFupSS with [98mxr/GMFupSS](https://github.com/98mxr/GMFupSS)
 - ST-MFNet with [danielism97/ST-MFNet](https://github.com/danielism97/ST-MFNet)
 - VapSR with [zhoumumu/VapSR](https://github.com/zhoumumu/VapSR)
-- GMFSS_union with [98mxr/GMFSS_union](https://github.com/98mxr/GMFSS_union)
+- GMFSS_union with [HolyWu version](https://github.com/HolyWu/vs-gmfss_union), [styler00dollar/vs-gmfss_union](https://github.com/styler00dollar/vs-gmfss_union), [98mxr/GMFSS_union](https://github.com/98mxr/GMFSS_union)
 - AI scene detection with [rwightman/pytorch-image-models](https://github.com/rwightman/pytorch-image-models), [snap-research/EfficientFormer (EfficientFormerV2)](https://github.com/snap-research/EfficientFormer), [lucidrains/TimeSformer-pytorch](https://github.com/lucidrains/TimeSformer-pytorch) and [OpenGVLab/UniFormerV2](https://github.com/OpenGVLab/UniFormerV2)
 
 Also used:
 - TensorRT C++ inference with [AmusementClub/vs-mlrt](https://github.com/AmusementClub/vs-mlrt)
 - ddfi with [Mr-Z-2697/ddfi-rife](https://github.com/Mr-Z-2697/ddfi-rife) (auto dedup-duplication, not an arch)
 - nix with [lucasew/nix-on-colab](https://github.com/lucasew/nix-on-colab)
-- custom ffmpeg with [styler00dollar/ffmpeg-static-arch-docker](https://github.com/styler00dollar/ffmpeg-static-arch-docker) in docker and [markus-perl/ffmpeg-build-script](https://github.com/markus-perl/ffmpeg-build-script) in colab currently.
+- custom ffmpeg with [styler00dollar/ffmpeg-static-arch-docker](https://github.com/styler00dollar/ffmpeg-static-arch-docker)
 - lsmash with [AkarinVS/L-SMASH-Works](https://github.com/AkarinVS/L-SMASH-Works)
 - wwxd with [dubhater/vapoursynth-wwxd](https://github.com/dubhater/vapoursynth-wwxd)
 - scxvid with [dubhater/vapoursynth-scxvid](https://github.com/dubhater/vapoursynth-scxvid)
@@ -84,7 +84,7 @@ Some important things:
 ## Usage
 ```bash
 # install docker, command for arch
-yay -S docker nvidia-docker nvidia-container-toolkit docker-compose
+yay -S docker nvidia-docker nvidia-container-toolkit docker-compose docker-buildx
 
 # Download prebuild image from dockerhub (recommended)
 docker pull styler00dollar/vsgan_tensorrt:latest
@@ -103,6 +103,12 @@ DOCKER_BUILDKIT=1 docker build --no-cache -t styler00dollar/vsgan_tensorrt:lates
 # afterwards the vsgan folder will be mounted under `/workspace/tensorrt` and you can navigate 
 # into it with `cd tensorrt`
 docker-compose run --rm vsgan_tensorrt
+
+# if you have `unauthorized: authentication required` problems, download the docker with 
+git clone https://github.com/NotGlop/docker-drag
+cd docker-drag
+python docker_pull.py styler00dollar/vsgan_tensorrt:latest
+docker load -i styler00dollar_vsgan_tensorrt.tar
 
 # run docker with the sh startup script (linux)
 sh start_docker.sh
@@ -286,7 +292,7 @@ Comparison to traditional methods:
 <div id='vs-mlrt'/>
 
 ## vs-mlrt (C++ TRT)
-You need to convert onnx models into engines. You need to do that on the same system where you want to do inference. Download onnx models from [here]( https://github.com/AmusementClub/vs-mlrt/releases/download/v7/models.v7.7z) or from [my Github page](https://github.com/styler00dollar/VSGAN-tensorrt-docker/releases/tag/models). You can technically just use any ONNX model you want or convert a pth into onnx with [convert_esrgan_to_onnx.py](https://github.com/styler00dollar/VSGAN-tensorrt-docker/blob/main/convert_esrgan_to_onnx.py). Inside the docker, you do
+You need to convert onnx models into engines. You need to do that on the same system where you want to do inference. Download onnx models from [here]( https://github.com/AmusementClub/vs-mlrt/releases/download/v7/models.v7.7z) or from [my Github page](https://github.com/styler00dollar/VSGAN-tensorrt-docker/releases/tag/models). You can technically just use any ONNX model you want or convert a pth into onnx with [convert_esrgan_to_onnx.py](https://github.com/styler00dollar/VSGAN-tensorrt-docker/blob/main/convert_esrgan_to_onnx.py) or [convert_compact_to_onnx.py](https://github.com/styler00dollar/VSGAN-tensorrt-docker/blob/main/convert_compact_to_onnx.py). Inside the docker, you do
 ```
 trtexec --fp16 --onnx=model.onnx --minShapes=input:1x3x8x8 --optShapes=input:1x3x720x1280 --maxShapes=input:1x3x1080x1920 --saveEngine=model.engine --tacticSources=+CUDNN,-CUBLAS,-CUBLAS_LT --buildOnly
 ```
@@ -296,12 +302,16 @@ trtexec --fp16 --onnx=dpir_drunet_color.onnx --minShapes=input:1x4x8x8 --optShap
 ```
 Rife needs 8 channels.
 ```
-trtexec --fp16 --onnx=rife.onnx --minShapes=input:1x8x64x64 --optShapes=input:1x8x720x1280 --maxShapes=input:1x8x1080x1920 --saveEngine=model.engine --tacticSources=+CUDNN,-CUBLAS,-CUBLAS_LT --buildOnly
+trtexec --fp16 --onnx=rife.onnx --minShapes=input:1x8x64x64 --optShapes=input:1x8x720x1280 --maxShapes=input:1x8x1080x1920 --saveEngine=model.engine --tacticSources=+CUDNN,-CUBLAS,-CUBLAS_LT --buildOnly --preview=+fasterDynamicShapes0805
+```
+rvpV2 needs 6 channels, but does not support variable shapes.
+```
+trtexec --fp16 --onnx=rvp2.onnx --saveEngine=model.engine --tacticSources=+CUDNN,-CUBLAS,-CUBLAS_LT --buildOnly
 ```
 and put that engine path into `inference_config.py`. Only do FP16 if your GPU does support it. 
 
 **Warnings**: 
-- You need to use the FP32 onnx, even if you want FP16, specify `--fp16` for FP16.
+- If you use the FP16 onnx you need to use `RGBH` colorspace, if you use FP32 onnx you need to use `RGBS` colorspace in `inference_config.py` 
 - Engines are system specific, don't use across multiple systems
 - Don't use reuse engines for different GPUs.
 - If you run out of memory, then you need to adjust the resolutions in that command. If your video is bigger than what you can input in the command, use tiling.
@@ -327,8 +337,7 @@ To quickly explain what ddfi is, the repository [Mr-Z-2697/ddfi-rife](https://gi
 
 Visual examples from that repository:
 
-![IMG](https://github.com/Mr-Z-2697/ddfi/blob/main/example/ddfi.webp?raw=true)
-![IMG](https://github.com/Mr-Z-2697/ddfi/blob/main/example/simp.webp?raw=true)
+https://user-images.githubusercontent.com/74594146/142829178-ff08b96f-9ca7-45ab-82f0-4e95be045f2d.mp4
 
 To use it, first you need to edit `ddfi.py` to select your interpolator of choise and then also apply the desired framerate. The official code uses 8x and I suggest you do so too. Small example:
 ```python
@@ -687,14 +696,11 @@ A100 (Colab/12CPU) (ncnn+8 threads+12 vs threads) (rife46) | 154 | 86 | 43
 A100 (Colab/12CPU) (ncnn+8 threads+12 vs threads+ffv1) (rife46) | 86 | 86 | 43
 6700xt (vs_trheads=4, num_threads=2) | ? / 129.7* | ? / 60.4* | ? / 28*
 
-GMFupSS | 480p | 720p | 1080p 
+* Benchmarks made with [HolyWu version](https://github.com/HolyWu/vs-gmfss_union) with threading and partial TensorRT and without setting `tactic` to `JIT_CONVOLUTIONS` and `EDGE_MASK_CONVOLUTIONS` due to performance penalty. I added [a modified version](https://github.com/styler00dollar/vs-gmfss_union) as a plugin to VSGAN, but I need to add enhancements to my own repo later.
+
+GMFSS_union | 480p | 720p | 1080p 
 -------- | ---- | ---- | ----
-T4 (Colab / 8CPU) | 8.1 | 3.4 | 1.3
-T4 (Colab / 8CPU) (partial fp16) | 13 | 5.2 | 2.3
-A100 (Colab / 12CPU) | 23 | 14 | 6.2
-4090 (12 vs threads) | 27 | 22 | 8.6
-4090 (12 vs threads + thread_queue_size) | 32 | 21 | 8.6
-4090³ (num_threads=4, partial fp16) | ? | ? / 34.4* | ? / 13.1*
+4090 (num_threads=8, num_streams=4, RGBH, TRT8.5) | ? | ? / 36.8* | ? / 12.9*
 
 EGVSR (4x, interval=5) | 480p | 720p | 1080p 
 -----------  | ---- | ---- | ----
