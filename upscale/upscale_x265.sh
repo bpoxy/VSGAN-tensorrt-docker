@@ -1,1 +1,0 @@
-vspipe -c y4m /workspace/tensorrt/upscale/upscale.py -a "video_path=/workspace/upscales/Preprocessed/$1" -a "models=$2" -a "matrix_in_s=$3" -a "degrain=$4" - | ffmpeg -i pipe: -i "/workspace/upscales/Preprocessed/$1" -s "1440:1080" -sws_flags bicubic -map 0:v -map 1:a -map 1:s? -c copy -c:v libx265 -preset slow -crf $5 -pix_fmt yuv420p10le $6 "/workspace/encodes/$1"

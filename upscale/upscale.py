@@ -1,53 +1,52 @@
-import sys
+import click
+import subprocess
 
-sys.path.append("/workspace/tensorrt/")
-import vapoursynth as vs
+@click.command()
+@click.option("--preprocessed-file", required=True, type=str, help="The preprocessed file.")
+@click.option("--models", required=True, type=str, help="A comma-separated list of upscale model names.")
+@click.option("--color-matrix", required=True, type=str, help="The input color matrix.")
+@click.option("--degrain/--no-degrain", required=True, help="Apply an MDegrain3 filter.")
+@click.option("--encode/--no-encode", required=True, help="Encode the upscale.")
+@click.option("--crf", required=True, type=int, help="The encode CRF.")
+@click.option("--x265-params", required=True, type=str, help="The x265 parameters.")
+@click.option("--output-file", required=True, type=str, help="The output file.")
 
-core = vs.core
-vs_api_below4 = vs.__api_version__.api_major < 4
-core = vs.core
-core.num_threads = 4  # can influence ram usage
+def upscale(preprocessed_file: str, models: str, color_matrix: str, degrain: bool, encode: bool, crf: float, x265_params: str, output_file: str):
+    vspipe_arguments = [
+        "vspipe",
+        "-c", "y4m",
+        "/workspace/tensorrt/upscale/vapoursynth.py",
+        "-a", f"video_path={preprocessed_file}",
+        "-a", f"models={models}",
+        "-a", f"matrix_in_s={color_matrix}",
+        "-a", f"degrain={degrain}",
+        # write to standard output
+        "-"
+    ]
 
-core.std.LoadPlugin(path="/usr/lib/x86_64-linux-gnu/libffms2.so")
-core.std.LoadPlugin(path="/usr/local/lib/libvstrt.so")
-core.std.LoadPlugin(path="/usr/local/lib/libmvtools.so")
+    ffmpeg_arguments = [
+        "ffmpeg",
+        "-i", "pipe:",
+        "-i", preprocessed_file,
+        "-s", "1440:1080",
+        "-sws_flags", "bicubic",
+        "-map", "0:v",
+        "-map", "1:a",
+        "-map", "1:s?",
+        "-c", "copy",
+        "-c:v", "libx265" if encode else "libx264",
+        "-preset", "slow" if encode else "ultrafast",
+        "-crf", str(crf if encode else 0),
+        "-pix_fmt", "yuv420p10le",
+        *(["-x265-params", x265_params] if encode else []),
+        output_file
+    ]
 
-# cfr video
-clip = core.ffms2.Source(source=globals()['video_path'], cache=False)
-# vfr video (untested)
-# clip = core.ffms2.Source(source='input.mkv', fpsnum = 24000, fpsden = 1001)
+    print(f"{' '.join(vspipe_arguments)} | {' '.join(ffmpeg_arguments)}")
 
-# resizing with descale
-# Debilinear, Debicubic, Delanczos, Despline16, Despline36, Despline64, Descale
-# clip = core.descale.Debilinear(clip, 1280, 720)
+    vspipe = subprocess.Popen(vspipe_arguments, stdout=subprocess.PIPE)
+    ffmpeg = subprocess.Popen(ffmpeg_arguments, stdin=vspipe.stdout)
+    ffmpeg.communicate()
 
-###############################################
-# COLORSPACE
-###############################################
-# convert colorspace
-clip = vs.core.resize.Bicubic(clip, format=vs.RGBS, matrix_in_s=globals()['matrix_in_s'])
-
-for model in globals()['models'].split(','):
-    clip = core.trt.Model(
-       clip,
-       engine_path=f"/workspace/tensorrt/models/{model}.engine",
-       tilesize=[720, 540],
-       num_streams=1,
-    )    
-
-###############################################
-# OUTPUT
-###############################################
-clip = vs.core.resize.Bicubic(clip, format=vs.YUV420P8, matrix_s="709")
-
-if eval(globals().get('degrain', 'False')):
-    super = core.mv.Super(clip)
-    mvbw = core.mv.Analyse(super, isb=True, delta=1, overlap=4)    
-    mvbw2 = core.mv.Analyse(super, isb=True, delta=2, overlap=4)
-    mvbw3 = core.mv.Analyse(super, isb=True, delta=3, overlap=4)
-    mvfw = core.mv.Analyse(super, isb=False, delta=1, overlap=4)
-    mvfw2 = core.mv.Analyse(super, isb=False, delta=2, overlap=4)
-    mvfw3 = core.mv.Analyse(super, isb=False, delta=3, overlap=4)
-    clip = core.mv.Degrain3(clip=clip, super=super, mvbw=mvbw, mvfw=mvfw, mvbw2=mvbw2, mvfw2=mvfw2, mvbw3=mvbw3, mvfw3=mvfw3, thsad=400, thsadc=150)
-
-clip.set_output()
+if __name__ == "__main__":
+    upscale()
