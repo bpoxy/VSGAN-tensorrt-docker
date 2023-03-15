@@ -1,2 +1,0 @@
-python /workspace/tensorrt/models/pth_to_onnx.py "$1"
-trtexec --fp16 --onnx="/tmp/$1.onnx" --minShapes=input:1x3x540x720 --optShapes=input:1x3x540x720 --maxShapes=input:1x3x540x720 --saveEngine="/workspace/tensorrt/models/$1.engine" --tacticSources=+CUDNN,-CUBLAS,-CUBLAS_LT
