@@ -1,5 +1,6 @@
 import sys
 import os
+
 sys.path.append("/workspace/tensorrt/")
 import vapoursynth as vs
 
@@ -20,6 +21,10 @@ from src.IFUNet import IFUNet
 from src.stmfnet import STMFNet
 from src.rife_trt import rife_trt
 from src.cain_trt import cain_trt
+from src.GMFSS_Fortuna_union import GMFSS_Fortuna_union
+from src.GMFSS_Fortuna import GMFSS_Fortuna
+from vsgmfss_fortuna import gmfss_fortuna
+from vsdpir import dpir
 
 # upscale imports
 from src.upscale_inference import upscale_inference
@@ -27,7 +32,7 @@ from src.pan import PAN_inference
 from src.realbasicvsr import realbasicvsr_inference
 from src.egvsr import egvsr_inference
 from src.cugan import cugan_inference
-from vsbasicvsrpp import BasicVSRPP
+from vsbasicvsrpp import basicvsrpp
 from vsswinir import SwinIR
 from src.SRVGGNetCompact import compact_inference
 
@@ -47,9 +52,8 @@ core.num_threads = 4  # can influence ram usage
 # only needed if you are inside docker
 core.std.LoadPlugin(path="/usr/lib/x86_64-linux-gnu/libffms2.so")
 core.std.LoadPlugin(path="/usr/local/lib/libvstrt.so")
-core.std.LoadPlugin(path="/usr/local/lib/libscxvid.so")
-core.std.LoadPlugin(path="/usr/local/lib/libwwxd.so")
 core.std.LoadPlugin(path="/usr/local/lib/x86_64-linux-gnu/libawarpsharp2.so")
+
 
 def inference_clip(video_path="", clip=None):
     # ddfi is passing clip
@@ -63,10 +67,10 @@ def inference_clip(video_path="", clip=None):
 
         # lsmash
         # clip = core.lsmas.LWLibavSource(source=video_path)
-        
+
         # resizing with descale
         # Debilinear, Debicubic, Delanczos, Despline16, Despline36, Despline64, Descale
-        #clip = core.descale.Debilinear(clip, 1280, 720)
+        # clip = core.descale.Debilinear(clip, 1280, 720)
 
     # Need reference for doing color transfer
     original_clip = clip
@@ -83,24 +87,23 @@ def inference_clip(video_path="", clip=None):
 
     # SCENE DETECT
     # clip = core.misc.SCDetect(clip=clip, threshold=0.100)
-    # clip = core.scxvid.Scxvid(clip, use_slices=True) # todo
-    # clip = core.wwxd.WWXD(clip=clip) # todo
-
-    # model based scene detect needs RGBS as input
+    # model based scene detect
     # clip = scene_detect(clip, model_name="efficientnetv2_b0", thresh=0.98, fp16=False)
 
     # dedup (requires you to call "vspipe parse.py -p ." to generate infos_running.txt and tmp.txt)
-    #from src.dedup import get_dedup_frames
-    #frames_duplicated, frames_duplicating = get_dedup_frames()
-    #clip = core.std.DeleteFrames(clip, frames_duplicated)
+    # from src.dedup import get_dedup_frames
+    # frames_duplicated, frames_duplicating = get_dedup_frames()
+    # clip = core.std.DeleteFrames(clip, frames_duplicated)
     # do upscaling here
-    #clip = core.std.DuplicateFrames(clip, frames_duplicating)
+    # clip = core.std.DuplicateFrames(clip, frames_duplicating)
     ###############################################
     # COLORSPACE
     ###############################################
 
     # convert colorspace
     clip = vs.core.resize.Bicubic(clip, format=vs.RGBS, matrix_in_s="709")
+    # clip = vs.core.resize.Spline64(clip, format=vs.RGBS, matrix_in_s="709", transfer_in_s="linear")
+    
     # convert colorspace + resizing
     # clip = vs.core.resize.Bicubic(
     #    clip, width=1280, height=720, format=vs.RGBS, matrix_in_s="709"
@@ -110,9 +113,9 @@ def inference_clip(video_path="", clip=None):
     # MODELS
     ###############################################
     # in rare cases it can happen that image range is not 0-1 and that resulting in big visual problems, clamp input
-    clip = core.akarin.Expr(clip, "x 0 1 clamp")
+    # clip = core.akarin.Expr(clip, "x 0 1 clamp")
     # clip = core.std.Limiter(clip, max=1, planes=[0,1,2])
-    #clip = scene_detect(clip, model_name="efficientnetv2_b0", thresh=0.98)
+    # clip = scene_detect(clip, model_name="efficientnetv2_b0", thresh=0.98)
 
     ######
     # VFI
@@ -146,9 +149,13 @@ def inference_clip(video_path="", clip=None):
 
     # model_inference = STMFNet()  # only 2x supported because architecture only outputs one image
 
-    #clip = vfi_inference(
+    # model_inference = GMFSS_Fortuna_union()
+
+    # model_inference = GMFSS_Fortuna()
+
+    # clip = vfi_inference(
     #    model_inference=model_inference, clip=clip, multi=2, metric_thresh=0.999
-    #)
+    # )
 
     # clip = rife_trt(clip, multi = 2, scale = 1.0, device_id = 0, num_streams = 2, engine_path = "/workspace/tensorrt/rife46.engine")
 
@@ -156,6 +163,11 @@ def inference_clip(video_path="", clip=None):
 
     # clip = gmfss_union(clip, num_streams=4, trt=True, factor_num=2, ensemble=False, sc=True, trt_cache_path="/workspace/tensorrt/")
 
+    # clip = gmfss_union(clip, num_streams=4, trt=True, factor_num=2, ensemble=False, sc=True, trt_cache_path="/workspace/tensorrt/")
+
+    # more information here: https://github.com/HolyWu/vs-gmfss_fortuna/blob/master/vsgmfss_fortuna/__init__.py
+    # clip = gmfss_fortuna(clip, num_streams=4, trt=True, factor_num=2, factor_den=1, model=1, ensemble=False, sc=True, trt_cache_path="/workspace/tensorrt/",)
+    
     ######
     # UPSCALING WITH TENSORRT
     ######
@@ -163,8 +175,8 @@ def inference_clip(video_path="", clip=None):
     clip = core.trt.Model(
         clip,
         engine_path="/workspace/tensorrt/cugan.engine",
-        #tilesize=[854, 480],
-        overlap=[0 ,0],
+        # tilesize=[854, 480],
+        overlap=[0, 0],
         num_streams=4,
     )
 
@@ -209,19 +221,8 @@ def inference_clip(video_path="", clip=None):
     ######
 
     # BasicVSR++
-    # 0 = REDS, 1 = Vimeo-90K (BI), 2 = Vimeo-90K (BD), 3 = NTIRE 2021 - Track 1, 4 = NTIRE 2021 - Track 2, 5 = NTIRE 2021 - Track 3
-    # clip = BasicVSRPP(
-    #    clip,
-    #    model=1,
-    #    interval=30,
-    #    tile_x=0,
-    #    tile_y=0,
-    #    tile_pad=16,
-    #    device_type="cuda",
-    #    device_index=0,
-    #    fp16=False,
-    #    cpu_cache=False,
-    # )
+    # model list: https://github.com/HolyWu/vs-basicvsrpp/blob/0ad97ca908707d883922f092428337972a8d0215/vsbasicvsrpp/__init__.py#L42
+    # clip = basicvsrpp(clip, model = 1, length = 15, cpu_cache = False, tile_w = 0, tile_h = 0, tile_pad = 16)
 
     # SwinIR
     # clip = SwinIR(clip, task="lightweight_sr", scale=2)
@@ -288,6 +289,11 @@ def inference_clip(video_path="", clip=None):
     ###
     # does not accept rgb clip, convert to yuv first
     # clip = core.warp.AWarpSharp2(clip, thresh=128, blur=2, type=0, depth=[16, 8, 8], chroma=0, opt=True, planes=[0,1,2], cplace="mpeg1")
+
+    # more information here: https://github.com/HolyWu/vs-dpir/blob/master/vsdpir/__init__.py
+    # clip = dpir(clip, num_streams = 4, nvfuser = False, cuda_graphs = False, trt = True, trt_cache_path = "/workspace/tensorrt/", task = "deblock", strength = 50, tile_w = 0, tile_h = 0, tile_pad= 8)
+    
+    # clip = core.cas.CAS(clip, sharpness=0.5)
     
     ###############################################
     # OUTPUT

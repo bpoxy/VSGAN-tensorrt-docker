@@ -16,10 +16,6 @@ Table of contents
    * [vs-mlrt (C++ TRT)](#vs-mlrt)
        * [multi-gpu](#multi-gpu)
    * [ddfi](#ddfi)
-   * [ncnn](#ncnn)
-       * [If you have errors installing ncnn whl files with pip](#pip-error)
-       * [Rife ncnn C++](#rife-ncnn-c)
-       * [RealSR / ESRGAN ncnn](#sr-ncnn)
    * [VFR (variable refresh rate)](#vfr)
    * [mpv](#mpv)
    * [Color transfer](#color)
@@ -53,6 +49,7 @@ Currently working networks:
 - VapSR with [zhoumumu/VapSR](https://github.com/zhoumumu/VapSR)
 - GMFSS_union with [HolyWu version](https://github.com/HolyWu/vs-gmfss_union), [styler00dollar/vs-gmfss_union](https://github.com/styler00dollar/vs-gmfss_union), [98mxr/GMFSS_union](https://github.com/98mxr/GMFSS_union)
 - AI scene detection with [rwightman/pytorch-image-models](https://github.com/rwightman/pytorch-image-models), [snap-research/EfficientFormer (EfficientFormerV2)](https://github.com/snap-research/EfficientFormer), [lucidrains/TimeSformer-pytorch](https://github.com/lucidrains/TimeSformer-pytorch) and [OpenGVLab/UniFormerV2](https://github.com/OpenGVLab/UniFormerV2)
+- GMFSS_Fortuna and GMFSS_Fortuna_union with [98mxr/GMFSS_Fortuna](https://github.com/98mxr/GMFSS_Fortuna), [HolyWu/vs-gmfss_fortuna](https://github.com/HolyWu/vs-gmfss_fortuna) and [styler00dollar/vs-gmfss_fortuna](https://github.com/styler00dollar/vs-gmfss_fortuna)
 
 Also used:
 - TensorRT C++ inference with [AmusementClub/vs-mlrt](https://github.com/AmusementClub/vs-mlrt)
@@ -63,11 +60,11 @@ Also used:
 - wwxd with [dubhater/vapoursynth-wwxd](https://github.com/dubhater/vapoursynth-wwxd)
 - scxvid with [dubhater/vapoursynth-scxvid](https://github.com/dubhater/vapoursynth-scxvid)
 
-Model | ESRGAN | SRVGGNetCompact | Rife | SwinIR | Sepconv | EGVSR | BasicVSR++ | Waifu2x | RealBasicVSR | RealCUGAN | FILM | DPIR | PAN | IFRNet | M2M | IFUNet | eisai | SCUNet | GMFupSS | ST-MFNet | VapSR | GMFSS_union
----  | ------- | --------------- | ---- | ------ | ------- | ----- | ---------- | ------- | ------------ | --------- | ---- | ---- | --- | ------ | --- | ------ | ----- | ------ | ---- | ---- | --- | ---
-CUDA | - | - | yes ([rife40](https://drive.google.com/file/d/1mUK9iON6Es14oK46-cCflRoPTeGiI_A9/view), [rife41](https://drive.google.com/file/d/1CPJOzo2CHr8AN3GQCGKOKMVXIdt1RBR1/view)) | [yes](https://github.com/HolyWu/vs-swinir/tree/master/vsswinir) | [yes](http://content.sniklaus.com/resepconv/network-paper.pytorch) | [yes](https://github.com/Thmen/EGVSR/raw/master/pretrained_models/EGVSR_iter420000.pth) | [yes](https://github.com/HolyWu/vs-basicvsrpp/releases/tag/model) | - | [yes](https://drive.google.com/file/d/1OYR1J2GXE90Zu2gVU5xc0t0P_UmKH7ID/view) | [yes](https://drive.google.com/drive/folders/1jAJyBf2qKe2povySwsGXsVMnzVyQzqDD) | [yes](https://drive.google.com/drive/folders/1q8110-qp225asX3DQvZnfLfJPkCHmDpy) | - | [yes](https://github.com/zhaohengyuan1/PAN/tree/master/experiments/pretrained_models) | [yes](https://www.dropbox.com/sh/hrewbpedd2cgdp3/AADbEivu0-CKDQcHtKdMNJPJa?dl=0) | [yes](https://drive.google.com/file/d/1dO-ArTLJ4cMZuN6dttIFFMLtp4I2LnSG/view) | [yes](https://drive.google.com/file/d/1psrM4PkPhuM2iCwwVngT0NCtx6xyiqXa/view) | [yes](https://drive.google.com/drive/folders/1AiZVgGej7Tpn95ats6967neIEPdShxWy) | [yes](https://github.com/cszn/SCUNet/blob/main/main_download_pretrained_models.py) | [yes](https://github.com/98mxr/GMFupSS/tree/main/train_log) | [yes](https://drive.google.com/file/d/1s5JJdt5X69AO2E2uuaes17aPwlWIQagG/view) | - | yes ([vanilla](https://drive.google.com/file/d/1AsA7a4HNR4RjCeEmNUJWy5kY3dBC-mru/view) / [wgan](https://drive.google.com/file/d/1GAp9DljP1RCQXz0uu_GNn751NBMEQOUB/view))
-TensorRT | yes (torch_tensorrt / C++ TRT) | yes (onnx_tensorrt / C++ TRT) [v2](https://github.com/AmusementClub/vs-mlrt/releases/download/model-20211209/RealESRGANv2_v1.7z), [v3](https://github.com/AmusementClub/vs-mlrt/releases/download/model-20211209/RealESRGANv3_v1.7z) | yes | - | - | - | - | [yes (C++ TRT)](https://github.com/AmusementClub/vs-mlrt/releases/download/model-20211209/waifu2x_v3.7z) | - | [yes (C++ TRT)](https://github.com/AmusementClub/vs-mlrt/releases/download/v9.2/models.v9.2.7z) | - | [yes (C++ TRT)](https://github.com/AmusementClub/vs-mlrt/releases/download/model-20211209/dpir_v3.7z) | - | - | - | - | - | - | - | - | [yes (C++ TRT)](https://github.com/styler00dollar/VSGAN-tensorrt-docker/releases/tag/models) | -
-ncnn | yes, but compile yourself ([realsr ncnn models](https://github.com/nihui/realsr-ncnn-vulkan/tree/master/models)) | yes, but compile yourself ([2x](https://files.catbox.moe/u62vpw.tar)) | [yes](https://github.com/styler00dollar/VapourSynth-RIFE-ncnn-Vulkan/tree/master/models) | - | - | - | - | - | - | - | - | - | - | - | - | - | - | - | - | -
+Model | ESRGAN | SRVGGNetCompact | Rife | SwinIR | Sepconv | EGVSR | BasicVSR++ | Waifu2x | RealBasicVSR | RealCUGAN | FILM | DPIR | PAN | IFRNet | M2M | IFUNet | eisai | SCUNet | GMFupSS | ST-MFNet | VapSR | GMFSS_union | GMFSS_Fortuna / GMFSS_Fortuna_union
+---  | ------- | --------------- | ---- | ------ | ------- | ----- | ---------- | ------- | ------------ | --------- | ---- | ---- | --- | ------ | --- | ------ | ----- | ------ | ---- | ---- | --- | --- | ---
+CUDA | - | - | yes ([rife40](https://drive.google.com/file/d/1mUK9iON6Es14oK46-cCflRoPTeGiI_A9/view), [rife41](https://drive.google.com/file/d/1CPJOzo2CHr8AN3GQCGKOKMVXIdt1RBR1/view)) | [yes](https://github.com/HolyWu/vs-swinir/tree/master/vsswinir) | [yes](http://content.sniklaus.com/resepconv/network-paper.pytorch) | [yes](https://github.com/Thmen/EGVSR/raw/master/pretrained_models/EGVSR_iter420000.pth) | [yes](https://github.com/HolyWu/vs-basicvsrpp/releases/tag/model) | - | [yes](https://drive.google.com/file/d/1OYR1J2GXE90Zu2gVU5xc0t0P_UmKH7ID/view) | [yes](https://drive.google.com/drive/folders/1jAJyBf2qKe2povySwsGXsVMnzVyQzqDD) | [yes](https://drive.google.com/drive/folders/1q8110-qp225asX3DQvZnfLfJPkCHmDpy) | - | [yes](https://github.com/zhaohengyuan1/PAN/tree/master/experiments/pretrained_models) | [yes](https://www.dropbox.com/sh/hrewbpedd2cgdp3/AADbEivu0-CKDQcHtKdMNJPJa?dl=0) | [yes](https://drive.google.com/file/d/1dO-ArTLJ4cMZuN6dttIFFMLtp4I2LnSG/view) | [yes](https://drive.google.com/file/d/1psrM4PkPhuM2iCwwVngT0NCtx6xyiqXa/view) | [yes](https://drive.google.com/drive/folders/1AiZVgGej7Tpn95ats6967neIEPdShxWy) | [yes](https://github.com/cszn/SCUNet/blob/main/main_download_pretrained_models.py) | [yes](https://github.com/98mxr/GMFupSS/tree/main/train_log) | [yes](https://drive.google.com/file/d/1s5JJdt5X69AO2E2uuaes17aPwlWIQagG/view) | - | yes ([vanilla](https://drive.google.com/file/d/1AsA7a4HNR4RjCeEmNUJWy5kY3dBC-mru/view) / [wgan](https://drive.google.com/file/d/1GAp9DljP1RCQXz0uu_GNn751NBMEQOUB/view)) | [base](https://drive.google.com/file/d/1BKz8UDAPEt713IVUSZSpzpfz_Fi2Tfd_/view) / [union](https://drive.google.com/file/d/1Mvd1GxkWf-DpfE9OPOtqRM9KNk20kLP3/view)
+TensorRT | yes (torch_tensorrt / C++ TRT) | yes (onnx_tensorrt / C++ TRT) [v2](https://github.com/AmusementClub/vs-mlrt/releases/download/model-20211209/RealESRGANv2_v1.7z), [v3](https://github.com/AmusementClub/vs-mlrt/releases/download/model-20211209/RealESRGANv3_v1.7z) | yes | - | - | - | - | [yes (C++ TRT)](https://github.com/AmusementClub/vs-mlrt/releases/download/model-20211209/waifu2x_v3.7z) | - | [yes (C++ TRT)](https://github.com/AmusementClub/vs-mlrt/releases/download/v9.2/models.v9.2.7z) | - | [yes (C++ TRT)](https://github.com/AmusementClub/vs-mlrt/releases/download/model-20211209/dpir_v3.7z) | - | - | - | - | - | - | - | - | [yes (C++ TRT)](https://github.com/styler00dollar/VSGAN-tensorrt-docker/releases/tag/models) | - | -
+ncnn | yes, but compile yourself ([realsr ncnn models](https://github.com/nihui/realsr-ncnn-vulkan/tree/master/models)) | yes, but compile yourself ([2x](https://files.catbox.moe/u62vpw.tar)) | [yes](https://github.com/styler00dollar/VapourSynth-RIFE-ncnn-Vulkan/tree/master/models) | - | - | - | - | - | - | - | - | - | - | - | - | - | - | - | - | - | - | - | -
 
 Some important things:
 - `ncnn` does not work in wsl and that means it doesn't work in Windows currently. `ncnn` will only work if you use docker in linux.
@@ -82,6 +79,8 @@ Some important things:
 <div id='usage'/>
 
 ## Usage
+**PSA FOR WINDOWS USERS: Docker Desktop 4.17.1 is broken. Download either [4.16.3](https://desktop.docker.com/win/main/amd64/96739/Docker%20Desktop%20Installer.exe) or [4.17.0](https://desktop.docker.com/win/main/amd64/99724/Docker%20Desktop%20Installer.exe). Both worked on my Windows 10. I would recommend to use 4.16.3, since another person confirmed it to work on Windows 11. 4.17.1 (which is currently latest) results in Docker not starting which is mentioned in [this issue](https://github.com/styler00dollar/VSGAN-tensorrt-docker/issues/34).**
+
 ```bash
 # install docker, command for arch
 yay -S docker nvidia-docker nvidia-container-toolkit docker-compose docker-buildx
@@ -292,23 +291,45 @@ Comparison to traditional methods:
 <div id='vs-mlrt'/>
 
 ## vs-mlrt (C++ TRT)
-You need to convert onnx models into engines. You need to do that on the same system where you want to do inference. Download onnx models from [here]( https://github.com/AmusementClub/vs-mlrt/releases/download/v7/models.v7.7z) or from [my Github page](https://github.com/styler00dollar/VSGAN-tensorrt-docker/releases/tag/models). You can technically just use any ONNX model you want or convert a pth into onnx with [convert_esrgan_to_onnx.py](https://github.com/styler00dollar/VSGAN-tensorrt-docker/blob/main/convert_esrgan_to_onnx.py) or [convert_compact_to_onnx.py](https://github.com/styler00dollar/VSGAN-tensorrt-docker/blob/main/convert_compact_to_onnx.py). Inside the docker, you do
+You need to convert onnx models into engines. You need to do that on the same system where you want to do inference. Download onnx models from [here]( https://github.com/AmusementClub/vs-mlrt/releases/download/v7/models.v7.7z) or from [my Github page](https://github.com/styler00dollar/VSGAN-tensorrt-docker/releases/tag/models). You can technically just use any ONNX model you want or convert a pth into onnx with [convert_esrgan_to_onnx.py](https://github.com/styler00dollar/VSGAN-tensorrt-docker/blob/main/convert_esrgan_to_onnx.py) or [convert_compact_to_onnx.py](https://github.com/styler00dollar/VSGAN-tensorrt-docker/blob/main/convert_compact_to_onnx.py). Inside the docker, you do one of the following commands:
+
+Good default choice:
 ```
-trtexec --fp16 --onnx=model.onnx --minShapes=input:1x3x8x8 --optShapes=input:1x3x720x1280 --maxShapes=input:1x3x1080x1920 --saveEngine=model.engine --tacticSources=+CUDNN,-CUBLAS,-CUBLAS_LT --buildOnly
+trtexec --fp16 --onnx=model.onnx --minShapes=input:1x3x8x8 --optShapes=input:1x3x720x1280 --maxShapes=input:1x3x1080x1920 --saveEngine=model.engine --tacticSources=+CUDNN,-CUBLAS,-CUBLAS_LT --skipInference
+```
+With some arguments known for speedup (Assuming enough vram for 4 stream inference):
+```
+trtexec --fp16 --onnx=model.onnx --minShapes=input:1x3x8x8 --optShapes=input:1x3x720x1280 --maxShapes=input:1x3x1080x1920 --saveEngine=model.engine --tacticSources=+CUDNN,-CUBLAS,-CUBLAS_LT --skipInference --infStreams=4 --builderOptimizationLevel=4
 ```
 Be aware that DPIR (color) needs 4 channels.
 ```
-trtexec --fp16 --onnx=dpir_drunet_color.onnx --minShapes=input:1x4x8x8 --optShapes=input:1x4x720x1280 --maxShapes=input:1x4x1080x1920 --saveEngine=model.engine --tacticSources=+CUDNN,-CUBLAS,-CUBLAS_LT --buildOnly
+trtexec --fp16 --onnx=dpir_drunet_color.onnx --minShapes=input:1x4x8x8 --optShapes=input:1x4x720x1280 --maxShapes=input:1x4x1080x1920 --saveEngine=model.engine --tacticSources=+CUDNN,-CUBLAS,-CUBLAS_LT --skipInference
 ```
-Rife needs 8 channels.
+Rife needs 8 channels. Setting `fasterDynamicShapes0805` since trtexec recommends it.
 ```
-trtexec --fp16 --onnx=rife.onnx --minShapes=input:1x8x64x64 --optShapes=input:1x8x720x1280 --maxShapes=input:1x8x1080x1920 --saveEngine=model.engine --tacticSources=+CUDNN,-CUBLAS,-CUBLAS_LT --buildOnly --preview=+fasterDynamicShapes0805
+trtexec --fp16 --onnx=rife.onnx --minShapes=input:1x8x64x64 --optShapes=input:1x8x720x1280 --maxShapes=input:1x8x1080x1920 --saveEngine=model.engine --tacticSources=+CUDNN,-CUBLAS,-CUBLAS_LT --skipInference --preview=+fasterDynamicShapes0805
 ```
 rvpV2 needs 6 channels, but does not support variable shapes.
 ```
-trtexec --fp16 --onnx=rvp2.onnx --saveEngine=model.engine --tacticSources=+CUDNN,-CUBLAS,-CUBLAS_LT --buildOnly
+trtexec --fp16 --onnx=rvp2.onnx --saveEngine=model.engine --tacticSources=+CUDNN,-CUBLAS,-CUBLAS_LT --skipInference
 ```
 and put that engine path into `inference_config.py`. Only do FP16 if your GPU does support it. 
+
+Recommended arguments:
+```
+--tacticSources=+CUDNN,-CUBLAS,-CUBLAS_LT 
+--infStreams=4 (and then using num_streams=4 in mlrt)
+--builderOptimizationLevel=4 (5 can be result in segfault, default is 3)
+```
+Not recommended arguments which also showed reduction in speed:
+```
+--heuristic
+--refit
+--maxAuxStreams=4
+--preview="+fasterDynamicShapes0805,+profileSharing0806"
+--tacticSources=+CUDNN,+CUBLAS,+CUBLAS_LT,+EDGE_MASK_CONVOLUTIONS,+JIT_CONVOLUTIONS (turning all on)
+```
+Testing was done on a 4090 with shuffle cugan.
 
 **Warnings**: 
 - If you use the FP16 onnx you need to use `RGBH` colorspace, if you use FP32 onnx you need to use `RGBS` colorspace in `inference_config.py` 
@@ -339,7 +360,7 @@ Visual examples from that repository:
 
 https://user-images.githubusercontent.com/74594146/142829178-ff08b96f-9ca7-45ab-82f0-4e95be045f2d.mp4
 
-To use it, first you need to edit `ddfi.py` to select your interpolator of choise and then also apply the desired framerate. The official code uses 8x and I suggest you do so too. Small example:
+To use it, first you need to edit `ddfi.py` to select your interpolator of choice and then also apply the desired framerate. The official code uses 8x and I suggest you do so too. Small example:
 ```python
 clip = core.misc.SCDetect(clip=clip, threshold=0.100)
 clip = core.rife.RIFE(clip, model=9, sc=True, skip=False, multiplier=8)
@@ -350,77 +371,6 @@ clip = core.vfrtocfr.VFRToCFR(
 ``` 
 
 Afterwards, you need to use `deduped_vfi.py` similar to how you used `main.py`. Adjust paths and file extention.
-
-
-<div id='ncnn'/>
-
-## ncnn
-If you have and AMD gpu, then you can at least use ncnn on your own system. The docker includes ncnn functionality.
-
-**WARNING: It seems like some videos result in a broken output. For some reason a certain `webm` video produced very weird results, despite it working with other (non-ncnn) models. If you encounter this, just mux to a mkv with `ffmpeg -i input.webm -c copy output.mkv` and it should work properly again.**
-
-Instructions for Manjaro:
-```bash
-yay -S vapoursynth-git ffms2 ncnn
-
-# nvidia
-yay -S nvidia-utils
-# amd
-yay -S vulkan-radeon
-or
-yay -S vulkan-amdgpu-pro
-```
-
-<div id='pip-error'/>
-
-#### If you have errors installing ncnn whl files with pip:
-It seems like certain pip versions are broken and will not allow certain ncnn whl files to install properly. If you have install erorrs, either run the install with `sudo` or manually upgrade your pip with
-```
-wget https://bootstrap.pypa.io/get-pip.py -O ./get-pip.py
-python ./get-pip.py
-python3 ./get-pip.py
-``` 
-`pip 21.0` is confirmed by myself to be broken.
-
-<div id='rife-ncnn-c'/>
-
-#### Rife ncnn C++ (recommended)
-I forked [HomeOfVapourSynthEvolution/VapourSynth-RIFE-ncnn-Vulkan](https://github.com/HomeOfVapourSynthEvolution/VapourSynth-RIFE-ncnn-Vulkan) and added my own models in [styler00dollar/VapourSynth-RIFE-ncnn-Vulkan](https://github.com/styler00dollar/VapourSynth-RIFE-ncnn-Vulkan). For the full experience you need to get VMAF and misc.
-```bash
-# VMAF
-wget https://github.com/Netflix/vmaf/archive/refs/tags/v2.3.1.tar.gz && \
-  tar -xzf  v2.3.1.tar.gz && cd vmaf-2.3.1/libvmaf/ && \
-  meson build --buildtype release && ninja -C build && \
-  ninja -C build install
-
-git clone https://github.com/HomeOfVapourSynthEvolution/VapourSynth-VMAF && cd VapourSynth-VMAF && meson build && \
-  ninja -C build && ninja -C build install
-
-# MISC
-git clone https://github.com/vapoursynth/vs-miscfilters-obsolete && cd vs-miscfilters-obsolete && meson build && \
-  ninja -C build && ninja -C build install
-
-# RIFE
-git clone https://github.com/HomeOfVapourSynthEvolution/VapourSynth-RIFE-ncnn-Vulkan && cd VapourSynth-RIFE-ncnn-Vulkan && \
-  git submodule update --init --recursive --depth 1 && meson build && ninja -C build && ninja -C build install
-```
-
-<div id='rife-ncnn-python'/>
-
-<div id='sr-ncnn'/>
-
-#### RealSR / ESRGAN ncnn:
-You can install precompiled whl files from [here](https://github.com/styler00dollar/realsr-ncnn-vulkan-python/releases/tag/v1a). If you want to compile it, visit [styler00dollar/realsr-ncnn-vulkan-python](https://github.com/styler00dollar/realsr-ncnn-vulkan-python).
-```bash
-sudo pacman -S base-devel vulkan-headers vulkan-icd-loader vulkan-devel
-pip install [URL for whl]
-```
-
-Any ESRGAN model will work with this (aside RealESRGAN 2x because of pixelshuffle), when you have the fitting param file. Make sure the input is called "data" and output is "output".
-
-If you want to convert a normal pth to ncnn, you need to do `pth->onnx->ncnn(bin/param)`. For the first step you can use `torch.onnx` and for the second one you can use [this website](https://convertmodel.com/).
-
-<div id='waifu-ncnn'/>
 
 <div id='vfr'/>
 
@@ -700,7 +650,7 @@ A100 (Colab/12CPU) (ncnn+8 threads+12 vs threads+ffv1) (rife46) | 86 | 86 | 43
 
 GMFSS_union | 480p | 720p | 1080p 
 -------- | ---- | ---- | ----
-4090 (num_threads=8, num_streams=4, RGBH, TRT8.5) | ? | ? / 36.8* | ? / 12.9*
+4090 (num_threads=4, num_streams=4, RGBH, TRT8.6, matmul_precision=medium) | ? | ? / 44.9* | ? / 15.4*
 
 EGVSR (4x, interval=5) | 480p | 720p | 1080p 
 -----------  | ---- | ---- | ----
