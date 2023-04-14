@@ -7,7 +7,7 @@ import subprocess
 @click.option("--color-matrix", required=True, type=str, help="The input color matrix.")
 @click.option("--degrain/--no-degrain", required=True, help="Apply an MDegrain3 filter.")
 @click.option("--encode/--no-encode", required=True, help="Encode the upscale.")
-@click.option("--crf", required=True, type=int, help="The encode CRF.")
+@click.option("--crf", required=True, type=float, help="The encode CRF.")
 @click.option("--x265-params", required=True, type=str, help="The x265 parameters.")
 @click.option("--output-file", required=True, type=str, help="The output file.")
 

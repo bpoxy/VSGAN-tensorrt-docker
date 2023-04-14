@@ -21,7 +21,7 @@ def build_engine(onnx_file):
         f"--saveEngine={MODELS_DIRECTORY}/{Path(onnx_file).stem}.engine",
         "--tacticSources=+CUDNN,-CUBLAS,-CUBLAS_LT"
     ]
-    subprocess.Popen(arguments)
+    subprocess.call(arguments)
 
 def build_onnx(pth_file) -> str:
     model_name = Path(pth_file).stem
