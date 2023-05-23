@@ -1,3 +1,4 @@
+import re
 import subprocess
 import sys
 sys.path.append("/workspace/tensorrt/")
@@ -30,9 +31,16 @@ def build_onnx(pth_file) -> str:
     try:
         model = ESRGAN(pth_file)
     except:
-        # parameters depend on model and you need to set them manually if it errors
+        num_feat = 64
+        num_conv = 16
+        
+        match = re.search(r'nf(\d+)-nc(\d+)', model_name)
+        if match:
+            num_feat = int(match.group(1))
+            num_conv = int(match.group(2))
+        
         model = SRVGGNetCompact(
-            num_in_ch=3, num_out_ch=3, num_feat=64, num_conv=16, upscale=int(model_name[0]), act_type="prelu"
+            num_in_ch=3, num_out_ch=3, num_feat=num_feat, num_conv=num_conv, upscale=int(model_name[0]), act_type="prelu"
         )
         
         state_dict = torch.load(pth_file)
