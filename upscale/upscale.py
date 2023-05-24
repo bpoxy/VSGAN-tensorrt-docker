@@ -1,4 +1,5 @@
 import click
+import re
 import subprocess
 
 @click.command()
@@ -23,13 +24,12 @@ def upscale(preprocessed_file: str, models: str, color_matrix: str, degrain: boo
         # write to standard output
         "-"
     ]
-
+    
     ffmpeg_arguments = [
         "ffmpeg",
         "-i", "pipe:",
         "-i", preprocessed_file,
-        "-s", "1440:1080",
-        "-sws_flags", "bicubic",
+        *(get_scale_flags(models)),
         "-map", "0:v",
         "-map", "1:a",
         "-map", "1:s?",
@@ -47,6 +47,19 @@ def upscale(preprocessed_file: str, models: str, color_matrix: str, degrain: boo
     vspipe = subprocess.Popen(vspipe_arguments, stdout=subprocess.PIPE)
     ffmpeg = subprocess.Popen(ffmpeg_arguments, stdin=vspipe.stdout)
     ffmpeg.communicate()
+
+def get_scale_flags(models: str) -> list[str]:
+    model_upscale_factors = re.findall(r'(\d)x', models, re.IGNORECASE)
+    total_upscale_factor = 1
+
+    for factor in model_upscale_factors:
+        total_upscale_factor *= int(factor)
+
+    if total_upscale_factor > 2:
+        downscale_factor = total_upscale_factor / 2
+        return ["-filter:v", f"scale=iw/{downscale_factor}:ih/{downscale_factor}", "-sws_flags", "bicubic"]
+
+    return []
 
 if __name__ == "__main__":
     upscale()
