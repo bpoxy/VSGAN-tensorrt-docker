@@ -49,17 +49,19 @@ def upscale(preprocessed_file: str, models: str, color_matrix: str, degrain: boo
     ffmpeg.communicate()
 
 def get_scale_flags(models: str) -> list[str]:
-    model_upscale_factors = re.findall(r'(\d)x', models, re.IGNORECASE)
-    total_upscale_factor = 1
+    all_upscale_factors = re.findall(r'(\d)x', models, re.IGNORECASE)
+    cumulative_upscale_factor = 1
+    filters = []
 
-    for factor in model_upscale_factors:
-        total_upscale_factor *= int(factor)
+    for factor in all_upscale_factors:
+        cumulative_upscale_factor *= int(factor)
 
-    if total_upscale_factor > 2:
-        downscale_factor = total_upscale_factor / 2
-        return ["-filter:v", f"scale=iw/{downscale_factor}:ih/{downscale_factor}", "-sws_flags", "bicubic"]
+    if cumulative_upscale_factor > 2:
+        downscale_factor = cumulative_upscale_factor / 2
+        filters.append(f"scale=iw/{downscale_factor}:ih/{downscale_factor}")
 
-    return []
+    filters.append("setdar=w/h")
+    return ["-filter:v", ",".join(filters), "-sws_flags", "bicubic"]
 
 if __name__ == "__main__":
     upscale()
