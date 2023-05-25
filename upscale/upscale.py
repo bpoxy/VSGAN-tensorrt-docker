@@ -58,10 +58,10 @@ def get_scale_flags(models: str) -> list[str]:
 
     if cumulative_upscale_factor > 2:
         downscale_factor = cumulative_upscale_factor / 2
-        filters.append(f"scale=iw/{downscale_factor}:ih/{downscale_factor}")
+        filters.append(f"scale=iw/{downscale_factor}:ih/{downscale_factor}:flags=bicubic")
 
     filters.append("setdar=w/h")
-    return ["-filter:v", ",".join(filters), "-sws_flags", "bicubic"]
+    return ["-filter:v", ",".join(filters)]
 
 if __name__ == "__main__":
     upscale()
