@@ -37,7 +37,7 @@ def upscale(preprocessed_file: str, models: str, color_matrix: str, degrain: boo
         "-c:v", "libx265" if encode else "libx264",
         "-preset", "slow" if encode else "ultrafast",
         "-crf", str(crf if encode else 0),
-        "-pix_fmt", "yuv420p10le",
+        "-pix_fmt", "yuv420p10le" if encode else "yuv420p",
         *(["-x265-params", x265_params] if encode else []),
         output_file
     ]
