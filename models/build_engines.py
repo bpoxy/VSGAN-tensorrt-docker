@@ -18,7 +18,7 @@ def build_engine(onnx_file):
         f"--onnx={onnx_file}",
         "--minShapes=input:1x3x540x720",
         "--optShapes=input:1x3x540x720",
-        "--maxShapes=input:1x3x540x720",
+        "--maxShapes=input:1x3x540x960",
         f"--saveEngine={MODELS_DIRECTORY}/{Path(onnx_file).stem}.engine",
         "--tacticSources=+CUDNN,-CUBLAS,-CUBLAS_LT"
     ]

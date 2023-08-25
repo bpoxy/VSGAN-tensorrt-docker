@@ -31,7 +31,7 @@ for model in globals()['models'].split(','):
     clip = core.trt.Model(
        clip,
        engine_path=f"/workspace/tensorrt/models/{model}.engine",
-       tilesize=[720, 540],
+       tilesize=[clip.width, clip.height],
        num_streams=1,
     )    
 
@@ -42,7 +42,7 @@ clip = vs.core.resize.Bicubic(clip, format=vs.YUV420P8, matrix_s="709")
 
 if eval(globals()['degrain']):
     super = core.mv.Super(clip)
-    mvbw = core.mv.Analyse(super, isb=True, delta=1, overlap=4)    
+    mvbw = core.mv.Analyse(super, isb=True, delta=1, overlap=4)
     mvbw2 = core.mv.Analyse(super, isb=True, delta=2, overlap=4)
     mvbw3 = core.mv.Analyse(super, isb=True, delta=3, overlap=4)
     mvfw = core.mv.Analyse(super, isb=False, delta=1, overlap=4)
