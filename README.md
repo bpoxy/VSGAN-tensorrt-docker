@@ -29,52 +29,49 @@ Currently working networks:
 - ESRGAN with [rlaphoenix/VSGAN](https://github.com/rlaphoenix/VSGAN) and [HolyWu/vs-realesrgan](https://github.com/HolyWu/vs-realesrgan)
 - RealESRGAN / RealESERGANVideo with [xinntao/Real-ESRGAN](https://github.com/xinntao/Real-ESRGAN) and [rlaphoenix/VSGAN](https://github.com/rlaphoenix/VSGAN)
 - RealESRGAN ncnn with [styler00dollar/realsr-ncnn-vulkan-python](https://github.com/styler00dollar/realsr-ncnn-vulkan-python) and [media2x/realsr-ncnn-vulkan-python](https://github.com/media2x/realsr-ncnn-vulkan-python)
-- [Rife4 with HolyWu/vs-rife](https://github.com/HolyWu/vs-rife/)
+- [Rife4 with HolyWu/vs-rife](https://github.com/HolyWu/vs-rife/) and [hzwer/Practical-RIFE](https://github.com/hzwer/Practical-RIFE) ([rife4.0](https://drive.google.com/file/d/1mUK9iON6Es14oK46-cCflRoPTeGiI_A9/view) [rife4.1](https://drive.google.com/file/d/1CPJOzo2CHr8AN3GQCGKOKMVXIdt1RBR1/view) [rife4.2](https://drive.google.com/file/d/1JpDAJPrtRJcrOZMMlvEJJ8MUanAkA-99/view)
+[rife4.3](https://drive.google.com/file/d/1xrNofTGMHdt9sQv7-EOG0EChl8hZW_cU/view) [rife4.4](https://drive.google.com/file/d/1eI24Kou0FUdlHLkwXfk-_xiZqKaZZFZX/view) [rife4.5](https://drive.google.com/file/d/17Bl_IhTBexogI9BV817kTjf7eTuJEDc0/view) [rife4.6](https://drive.google.com/file/d/1EAbsfY7mjnXNa6RAsATj2ImAEqmHTjbE/view) [rife4.7.1](https://drive.google.com/file/d/1s2zMMIJrUAFLexktm1rWNhlIyOYJ3_ju/view) [rife4.8.1](https://drive.google.com/file/d/1wZa3SyegLPUwBQWmoDLM0MumWd2-ii63/view)
+[rife4.9.2](https://drive.google.com/file/d/1UssCvbL8N-ty0xIKM5G5ZTEgp9o4w3hp/view) [rife4.10.1](https://drive.google.com/file/d/1WNot1qYBt05LUyY1O9Uwwv5_K8U6t8_x/view) [rife4.11.1](https://drive.google.com/file/d/1Dwbp4qAeDVONPz2a10aC2a7-awD6TZvL/view) [rife4.12.2](https://drive.google.com/file/d/1ZHrOBL217ItwdpUBcBtRE3XBD-yy-g2S/view))
+
 - RIFE ncnn with [styler00dollar/VapourSynth-RIFE-ncnn-Vulkan](https://github.com/styler00dollar/VapourSynth-RIFE-ncnn-Vulkan) and [HomeOfVapourSynthEvolution/VapourSynth-RIFE-ncnn-Vulkan](https://github.com/HomeOfVapourSynthEvolution/VapourSynth-RIFE-ncnn-Vulkan)
 - [SwinIR with HolyWu/vs-swinir](https://github.com/HolyWu/vs-swinir)
 - [Sepconv (enhanced) with sniklaus/revisiting-sepconv](https://github.com/sniklaus/revisiting-sepconv/)
-- EGVSR with [Thmen/EGVSR](https://github.com/Thmen/EGVSR) and [HolyWu/vs-basicvsrpp](https://github.com/HolyWu/vs-basicvsrpp)
+- EGVSR with [Thmen/EGVSR](https://github.com/Thmen/EGVSR)
 - BasicVSR++ with [HolyWu/vs-basicvsrpp](https://github.com/HolyWu/vs-basicvsrpp)
 - RealBasicVSR with [ckkelvinchan/RealBasicVSR](https://github.com/ckkelvinchan/RealBasicVSR)
 - RealCUGAN with [bilibili/ailab](https://github.com/bilibili/ailab/blob/main/Real-CUGAN/README_EN.md)
-- FILM with [google-research/frame-interpolation](https://github.com/google-research/frame-interpolation)
-- PAN with [zhaohengyuan1/PAN](https://github.com/zhaohengyuan1/PAN)
 - IFRNet with [ltkong218/IFRNet](https://github.com/ltkong218/IFRNet)
 - M2M with [feinanshan/M2M_VFI](https://github.com/feinanshan/M2M_VFI)
 - IFUNet with [98mxr/IFUNet](https://github.com/98mxr/IFUNet/)
-- eisai with [ShuhongChen/eisai-anime-interpolator](https://github.com/ShuhongChen/eisai-anime-interpolator)
 - SCUNet with [cszn/SCUNet](https://github.com/cszn/SCUNet)
 - GMFupSS with [98mxr/GMFupSS](https://github.com/98mxr/GMFupSS)
 - ST-MFNet with [danielism97/ST-MFNet](https://github.com/danielism97/ST-MFNet)
-- VapSR with [zhoumumu/VapSR](https://github.com/zhoumumu/VapSR)
 - GMFSS_union with [HolyWu version](https://github.com/HolyWu/vs-gmfss_union), [styler00dollar/vs-gmfss_union](https://github.com/styler00dollar/vs-gmfss_union), [98mxr/GMFSS_union](https://github.com/98mxr/GMFSS_union)
-- AI scene detection with [rwightman/pytorch-image-models](https://github.com/rwightman/pytorch-image-models), [snap-research/EfficientFormer (EfficientFormerV2)](https://github.com/snap-research/EfficientFormer), [lucidrains/TimeSformer-pytorch](https://github.com/lucidrains/TimeSformer-pytorch) and [OpenGVLab/UniFormerV2](https://github.com/OpenGVLab/UniFormerV2)
 - GMFSS_Fortuna and GMFSS_Fortuna_union with [98mxr/GMFSS_Fortuna](https://github.com/98mxr/GMFSS_Fortuna), [HolyWu/vs-gmfss_fortuna](https://github.com/HolyWu/vs-gmfss_fortuna) and [styler00dollar/vs-gmfss_fortuna](https://github.com/styler00dollar/vs-gmfss_fortuna)
+- SAFMN with [sunny2109/SAFMN](https://github.com/sunny2109/SAFMN)
+- SRVGGNetCompact with [xinntao/Real-ESRGAN](https://github.com/xinntao/Real-ESRGAN) and [the-database/mpv-upscale-2x_animejanai](https://github.com/the-database/mpv-upscale-2x_animejanai)
+- Model based scene detection with [rwightman/pytorch-image-models](https://github.com/rwightman/pytorch-image-models), [snap-research/EfficientFormer (EfficientFormerV2)](https://github.com/snap-research/EfficientFormer), [lucidrains/TimeSformer-pytorch](https://github.com/lucidrains/TimeSformer-pytorch) and [OpenGVLab/UniFormerV2](https://github.com/OpenGVLab/UniFormerV2)
 
 Also used:
 - TensorRT C++ inference and python script usage with [AmusementClub/vs-mlrt](https://github.com/AmusementClub/vs-mlrt)
 - ddfi with [Mr-Z-2697/ddfi-rife](https://github.com/Mr-Z-2697/ddfi-rife) (auto dedup-duplication, not an arch)
-- nix with [lucasew/nix-on-colab](https://github.com/lucasew/nix-on-colab)
 - custom ffmpeg with [styler00dollar/ffmpeg-static-arch-docker](https://github.com/styler00dollar/ffmpeg-static-arch-docker)
 - lsmash with [AkarinVS/L-SMASH-Works](https://github.com/AkarinVS/L-SMASH-Works)
-- wwxd with [dubhater/vapoursynth-wwxd](https://github.com/dubhater/vapoursynth-wwxd)
-- scxvid with [dubhater/vapoursynth-scxvid](https://github.com/dubhater/vapoursynth-scxvid)
+- bestsource with [vapoursynth/bestsource](https://github.com/vapoursynth/bestsource)
 - trt precision check and upscale frame skip with [mafiosnik777/enhancr](https://github.com/mafiosnik777/enhancr)
 
-Model | ESRGAN | SRVGGNetCompact | Rife | SwinIR | Sepconv | EGVSR | BasicVSR++ | Waifu2x | RealBasicVSR | RealCUGAN | FILM | DPIR | PAN | IFRNet | M2M | IFUNet | eisai | SCUNet | GMFupSS | ST-MFNet | VapSR | GMFSS_union | GMFSS_Fortuna / GMFSS_Fortuna_union
----  | ------- | --------------- | ---- | ------ | ------- | ----- | ---------- | ------- | ------------ | --------- | ---- | ---- | --- | ------ | --- | ------ | ----- | ------ | ---- | ---- | --- | --- | ---
-CUDA | - | - | yes ([rife40](https://drive.google.com/file/d/1mUK9iON6Es14oK46-cCflRoPTeGiI_A9/view), [rife41](https://drive.google.com/file/d/1CPJOzo2CHr8AN3GQCGKOKMVXIdt1RBR1/view)) | [yes](https://github.com/HolyWu/vs-swinir/tree/master/vsswinir) | [yes](http://content.sniklaus.com/resepconv/network-paper.pytorch) | [yes](https://github.com/Thmen/EGVSR/raw/master/pretrained_models/EGVSR_iter420000.pth) | [yes](https://github.com/HolyWu/vs-basicvsrpp/releases/tag/model) | - | [yes](https://drive.google.com/file/d/1OYR1J2GXE90Zu2gVU5xc0t0P_UmKH7ID/view) | [yes](https://drive.google.com/drive/folders/1jAJyBf2qKe2povySwsGXsVMnzVyQzqDD) | [yes](https://drive.google.com/drive/folders/1q8110-qp225asX3DQvZnfLfJPkCHmDpy) | - | [yes](https://github.com/zhaohengyuan1/PAN/tree/master/experiments/pretrained_models) | [yes](https://www.dropbox.com/sh/hrewbpedd2cgdp3/AADbEivu0-CKDQcHtKdMNJPJa?dl=0) | [yes](https://drive.google.com/file/d/1dO-ArTLJ4cMZuN6dttIFFMLtp4I2LnSG/view) | [yes](https://drive.google.com/file/d/1psrM4PkPhuM2iCwwVngT0NCtx6xyiqXa/view) | [yes](https://drive.google.com/drive/folders/1AiZVgGej7Tpn95ats6967neIEPdShxWy) | [yes](https://github.com/cszn/SCUNet/blob/main/main_download_pretrained_models.py) | [yes](https://github.com/98mxr/GMFupSS/tree/main/train_log) | [yes](https://drive.google.com/file/d/1s5JJdt5X69AO2E2uuaes17aPwlWIQagG/view) | - | yes ([vanilla](https://drive.google.com/file/d/1AsA7a4HNR4RjCeEmNUJWy5kY3dBC-mru/view) / [wgan](https://drive.google.com/file/d/1GAp9DljP1RCQXz0uu_GNn751NBMEQOUB/view)) | [base](https://drive.google.com/file/d/1BKz8UDAPEt713IVUSZSpzpfz_Fi2Tfd_/view) / [union](https://drive.google.com/file/d/1Mvd1GxkWf-DpfE9OPOtqRM9KNk20kLP3/view)
-TensorRT | yes (torch_tensorrt / C++ TRT) | yes (onnx_tensorrt / C++ TRT) [v2](https://github.com/AmusementClub/vs-mlrt/releases/download/model-20211209/RealESRGANv2_v1.7z), [v3](https://github.com/AmusementClub/vs-mlrt/releases/download/model-20211209/RealESRGANv3_v1.7z) | yes | - | - | - | - | [yes (C++ TRT)](https://github.com/AmusementClub/vs-mlrt/releases/download/model-20211209/waifu2x_v3.7z) | - | [yes (C++ TRT)](https://github.com/AmusementClub/vs-mlrt/releases/download/v9.2/models.v9.2.7z) | - | [yes (C++ TRT)](https://github.com/AmusementClub/vs-mlrt/releases/download/model-20211209/dpir_v3.7z) | - | - | - | - | - | - | - | - | [yes (C++ TRT)](https://github.com/styler00dollar/VSGAN-tensorrt-docker/releases/tag/models) | - | -
-ncnn | yes, but compile yourself ([realsr ncnn models](https://github.com/nihui/realsr-ncnn-vulkan/tree/master/models)) | yes, but compile yourself ([2x](https://files.catbox.moe/u62vpw.tar)) | [yes](https://github.com/styler00dollar/VapourSynth-RIFE-ncnn-Vulkan/tree/master/models) | - | - | - | - | - | - | - | - | - | - | - | - | - | - | - | - | - | - | - | -
+Model | ESRGAN | SRVGGNetCompact | Rife | SwinIR | Sepconv | EGVSR | BasicVSR++ | Waifu2x | RealBasicVSR | RealCUGAN | DPIR | PAN | IFRNet | M2M | IFUNet | SCUNet | GMFupSS | ST-MFNet | VapSR | GMFSS_union | GMFSS_Fortuna / GMFSS_Fortuna_union | SAFMN
+---  | ------- | --------------- | ---- | ------ | ------- | ----- | ---------- | ------- | ------------ | --------- | ---- | ---- | --- | ------ | --- | ------ | ----- | ------ | ---- | ---- | --- | --- 
+CUDA | - | - | yes (4.0-4.12) | [yes](https://github.com/HolyWu/vs-swinir/tree/master/vsswinir) | [yes](http://content.sniklaus.com/resepconv/network-paper.pytorch) | [yes](https://github.com/Thmen/EGVSR/raw/master/pretrained_models/EGVSR_iter420000.pth) | [yes](https://github.com/HolyWu/vs-basicvsrpp/releases/tag/model) | - | [yes](https://drive.google.com/file/d/1OYR1J2GXE90Zu2gVU5xc0t0P_UmKH7ID/view) | [yes](https://drive.google.com/drive/folders/1jAJyBf2qKe2povySwsGXsVMnzVyQzqDD) | - | [yes](https://github.com/zhaohengyuan1/PAN/tree/master/experiments/pretrained_models) | [yes](https://www.dropbox.com/sh/hrewbpedd2cgdp3/AADbEivu0-CKDQcHtKdMNJPJa?dl=0) | [yes](https://drive.google.com/file/d/1dO-ArTLJ4cMZuN6dttIFFMLtp4I2LnSG/view) | [yes](https://drive.google.com/file/d/1psrM4PkPhuM2iCwwVngT0NCtx6xyiqXa/view) | [yes](https://github.com/cszn/SCUNet/blob/main/main_download_pretrained_models.py) | [yes](https://github.com/98mxr/GMFupSS/tree/main/train_log) | [yes](https://drive.google.com/file/d/1s5JJdt5X69AO2E2uuaes17aPwlWIQagG/view) | - | yes ([vanilla](https://drive.google.com/file/d/1AsA7a4HNR4RjCeEmNUJWy5kY3dBC-mru/view) / [wgan](https://drive.google.com/file/d/1GAp9DljP1RCQXz0uu_GNn751NBMEQOUB/view)) | [base](https://drive.google.com/file/d/1BKz8UDAPEt713IVUSZSpzpfz_Fi2Tfd_/view) / [union](https://drive.google.com/file/d/1Mvd1GxkWf-DpfE9OPOtqRM9KNk20kLP3/view) | -
+TensorRT | yes (torch_tensorrt / C++ TRT) | yes (onnx_tensorrt / C++ TRT) [v2](https://github.com/AmusementClub/vs-mlrt/releases/download/model-20211209/RealESRGANv2_v1.7z), [v3](https://github.com/AmusementClub/vs-mlrt/releases/download/model-20211209/RealESRGANv3_v1.7z) | yes | - | - | - | - | [yes (C++ TRT)](https://github.com/AmusementClub/vs-mlrt/releases/download/model-20211209/waifu2x_v3.7z) | - | [yes (C++ TRT)](https://github.com/AmusementClub/vs-mlrt/releases/download/v9.2/models.v9.2.7z) | [yes (C++ TRT)](https://github.com/AmusementClub/vs-mlrt/releases/download/model-20211209/dpir_v3.7z) | - | - | - | - | - | - | - | [yes (C++ TRT)](https://github.com/styler00dollar/VSGAN-tensorrt-docker/releases/tag/models) | - | - | [yes](https://github.com/sunny2109/SAFMN/releases/tag/v0.1.0)
+ncnn | - | yes, but compile yourself ([2x](https://files.catbox.moe/u62vpw.tar)) | [yes (4.0-4.12)](https://github.com/styler00dollar/VapourSynth-RIFE-ncnn-Vulkan/tree/master/models) | - | - | - | - | - | - | - | - | - | - | - | - | - | - | - | - | - | - | -
 
 Some important things:
-- `ncnn` does not work in wsl and that means it doesn't work in Windows currently. `ncnn` will only work if you use docker in linux.
+- `ncnn` does not work in wsl and that means it doesn't work in Windows currently. `ncnn` will only work if you use docker in linux. Most likely will be removed due to low speed compared to TensorRT.
 - If you are on Windows, install all the latest updates first, otherwise wsl won't work properly. 21H2 minimum.
 - Do not use `webm` video, webm is often broken. It can work, but don't complain about broken output afterwards. I would suggest to render webm into mp4 or mkv.
 - Only use ffmpeg to determine if video is variable framerate (vfr) or not. Other programs do not seem reliable.
 - Processing vfr video is dangerous, but you can try to use fpsnum and fpsden. Either use these params or render the input video into constant framerate (crf).
-- `x264` can be faster than `ffmpeg`.
-- The C++ VS rife extention can be faster than CUDA.
 - Colabs have a weak cpu, you should try `x264` with `--opencl`. (A100 does not support NVENC and such)
 
 <div id='usage'/>
@@ -82,7 +79,9 @@ Some important things:
 ## Usage
 Get CUDA12.1 and latest Nvidia drivers. After that, follow the following steps:
 
-**PSA FOR WINDOWS USERS: Docker Desktop 4.17.1 is broken. Download either [4.16.3](https://desktop.docker.com/win/main/amd64/96739/Docker%20Desktop%20Installer.exe) or [4.17.0](https://desktop.docker.com/win/main/amd64/99724/Docker%20Desktop%20Installer.exe). Both worked on my Windows 10. I would recommend to use 4.16.3, since another person confirmed it to work on Windows 11. 4.17.1 (which is currently latest) results in Docker not starting which is mentioned in [this issue](https://github.com/styler00dollar/VSGAN-tensorrt-docker/issues/34).**
+**WARNING FOR WINDOWS USERS: Docker Desktop `4.17.1` is broken. I confirmed that [4.25.0](https://desktop.docker.com/win/main/amd64/126437/Docker%20Desktop%20Installer.exe) should work. Older tested versions are [4.16.3](https://desktop.docker.com/win/main/amd64/96739/Docker%20Desktop%20Installer.exe) or [4.17.0](https://desktop.docker.com/win/main/amd64/99724/Docker%20Desktop%20Installer.exe). I would recommend to use `4.25.0`. `4.17.1` results in Docker not starting which is mentioned in [this issue](https://github.com/styler00dollar/VSGAN-tensorrt-docker/issues/34).**
+
+**ANOTHER WARNING FOR PEOPLE WITHOUT `AVX512`: Instead of using `styler00dollar/vsgan_tensorrt:latest`, which I build with my 7950x and thus with all AVX, use `chin39/vsgan_tensorrt:latest` in `compose.yaml` and the git branch `no_avx` to avoid `Illegal instruction (core dumped)` which is mentioned in [this issue](https://github.com/styler00dollar/VSGAN-tensorrt-docker/issues/48).**
 
 Quickstart:
 ```bash
@@ -103,6 +102,8 @@ docker-compose run --rm vsgan_tensorrt
 There are now multiple containers to choose from, if you don't want the default, then edit `compose.yaml`
 and set a different tag `image: styler00dollar/vsgan_tensorrt:x` prior to running `docker-compose run --rm vsgan_tensorrt`.
 - `latest`: Default docker with everything.
+- The other latest image is by [chinrw](https://hub.docker.com/r/chin39/vsgan_tensorrt/tags) and built on a i9-13900K. Since The docker is built with all compatible instructions, it just crashes on cpus that
+  are not compatible. Use this instead if your cpu does not support all instruction sets. Use the branch `no_avx` for that, this was the git status when the docker image was created.
 - `minimal`: Bare minimum to run `ffmpeg`, `mlrt` and `lsmash`.
 - `deprecated`: Container before changing dockerfile to copy stage, has same functionality as latest, but is way bigger in size. (not recommended)
 - `ffmpeg_trt`: Experimental ffmpeg trt plugin without vapoursynth, only for sm_89 for now, or recompile with your own gpu compute version.
@@ -112,10 +113,11 @@ and set a different tag `image: styler00dollar/vsgan_tensorrt:x` prior to runnin
 
 | docker image  | compressed download | extracted container | short description |
 | ------------- | ------------------- | ------------------- | ----------------- |
-| latest | 11gb | 21gb | default latest
-| minimal | 4gb | 8gb | ffmpeg + mlrt + lsmash
-| deprecated | 23gb | 43gb | old default
-| ffmpeg_trt | 9gb | 20gb | ffmpeg c++ trt inference plugin to use trt engines with ffmpeg directly without vapoursynth
+| styler00dollar/vsgan_tensorrt:latest | 9gb | 17gb | default latest
+| chin39/vsgan_tensorrt:latest | 9gb | 17gb | default latest without AVX512
+| styler00dollar/vsgan_tensorrt:minimal | 4gb | 8gb | ffmpeg + mlrt + lsmash
+| styler00dollar/vsgan_tensorrt:deprecated | 23gb | 43gb | old default
+| styler00dollar/vsgan_tensorrt:ffmpeg_trt | 9gb | 20gb | ffmpeg c++ trt inference plugin to use trt engines with ffmpeg directly without vapoursynth
 
 Piping usage:
 ```
@@ -327,7 +329,7 @@ Comparison to traditional methods:
 ## vs-mlrt (C++ TRT)
 You need to convert onnx models into engines. You need to do that on the same system where you want to do inference. Download onnx models from [here]( https://github.com/AmusementClub/vs-mlrt/releases/download/v7/models.v7.7z) or from [my Github page](https://github.com/styler00dollar/VSGAN-tensorrt-docker/releases/tag/models). You can technically just use any ONNX model you want or convert a pth into onnx with [convert_esrgan_to_onnx.py](https://github.com/styler00dollar/VSGAN-tensorrt-docker/blob/main/convert_esrgan_to_onnx.py) or [convert_compact_to_onnx.py](https://github.com/styler00dollar/VSGAN-tensorrt-docker/blob/main/convert_compact_to_onnx.py). Inside the docker, you do one of the following commands:
 
-Good default choice:
+Good default choice (Warning: Cugan with 3x scale requires same MIN/OPT/MAX shapes):
 ```
 trtexec --fp16 --onnx=model.onnx --minShapes=input:1x3x8x8 --optShapes=input:1x3x720x1280 --maxShapes=input:1x3x1080x1920 --saveEngine=model.engine --tacticSources=+CUDNN,-CUBLAS,-CUBLAS_LT --skipInference
 ```
@@ -501,11 +503,6 @@ Warnings:
 - `int8` does not automatically mean usable model. It can differ from normal inference quite a lot without adjusting the model.
 - `thread_queue_size` means `-thread_queue_size 2488320`.
 - "*" indicates benchmarks which were done with `vspipe file.py -p .` instead of piping into ffmpeg and rendering to avoid cpu bottleneck.
-- 4090 data fluctuating due to teamviewer cpu load and uses 11900k.
-- 4090² uses 5950x.
-- 4090³ uses 13900k.
-
-ⓘ means that model not public yet
 
 Compact (2x) | 480p | 720p | 1080p
 ------  | ---  | ---- | ------
@@ -535,9 +532,7 @@ A100 (Colab) (vs+TensorRT8.2GA) (C++ TRT+x264 (--opencl)+FrameEval+num_streams=5
 A100 (Colab) (vs+onnx+FrameEval) | 26 | 12 | 4.9
 A100 (Colab) (vs+quantized onnx+FrameEval) | 26 | 12 | 5.7
 A100 (Colab) (jpg+CUDA) | 28.2 (9 Threads) | 28.2 (7 Threads) | 9.96 (4 Threads)
-4090 (vs+TesnorRT8.4GA+opset16+12 vs threads)| 135 | 59 | 25
-4090 (vs+TesnorRT8.4GA+opset16+12 vs threads+ffv1) | 155 | 72 | 35
-4090 (vs+TensorRT8.4GA+opset16+12 vs threads+thread_queue_size) | 200 | 91 | X
+4090 (TRT9.1+num_threads=4+num_streams=2+(fp16+bf16)+RGBH+op18) | ? | ? / 79.2* | ? / 41*
 6700xt (vs_threads=4+mlrt ncnn) | ? / 7.7* | ? / 3.25* | ? / 1.45*
 
 Compact (4x) | 480p | 720p | 1080p
@@ -554,8 +549,7 @@ A100 (Colab) (jpg+CUDA) | ? | ?| 3 (4 Threads)
 
 UltraCompact (2x) | 480p | 720p | 1080p 
 -------- | ---- | ---- | ----
-4090²(2) (TensorRT8.4GA+vs_threads=4+num_streams=4+opset16+fp16) | ? | ? | ? / 55.1*
-4090²(2) (TensorRT8.4GA+vs_threads=4+num_streams=4+opset16+int8) | ? | ? | ? / 57.7*
+4090 (TRT9.1+num_threads=4+num_streams=2+(fp16+bf16)+RGBH+op18) | ? | ? / 113.7* | ? / 52.7*
 6700xt (vs_threads=4+mlrt ncnn) | ? / 14.5* | ? / 6.1* | ? / 2.76*
 
 cugan (2x) | 480p | 720p | 1080p 
@@ -567,9 +561,7 @@ V100 (Colab High RAM) (vs+TensorRT8.4+ffmpeg+C++ TRT+num_streams=3+no tiling+ops
 A100 (Colab High RAM) (vs+TensorRT8.4+x264 (--opencl)+C++ TRT+vs threads=8+num_streams=8+no tiling+opset13) | 53.8 | 24.4 | 10.9
 3090² (vs+TensorRT8.4+ffmpeg+C++ TRT+vs_threads=8+num_streams=5+no tiling+opset13) | 79 | 35 | 15
 2x3090² (vs+TensorRT8.4+ffmpeg+C++ TRT+vs_threads=12+num_streams=5+no tiling+opset13) | 131 | 53 | 23
-4090 (vs+TensorRT8.4GA+ffmpeg+C++ TRT+vs_threads=12+num_streams=6+no tiling+opset13) | 117 | 53 | 24
-4090 (vs+TensorRT8.4GA+ffmpeg+C++ TRT+vs_threads=12+num_streams=5+no tiling+opset13+int8) | ? | ? | 17
-4090 (vs+TensorRT8.4GA+ffmpeg+C++ TRT+vs_threads=12+num_streams=5+no tiling+opset13+int8+ffv1) | 132 | 61 | 29
+4090 (TRT9.1+num_threads=4+num_streams=2+(fp16+bf16)+RGBH+op18) | ? | ? / 51* | ? / 22.7*
 6700xt (vs_threads=4+mlrt ncnn) | ? / 3.3* | ? / 1.3* | OOM (512px tiling ? / 0.39*)
 
 ESRGAN 4x (64mb) (23b+64nf) | 480p | 720p | 1080p
@@ -585,13 +577,9 @@ V100 (Colab High VRAM) (C++ TensorRT8.2GA+x264+FrameEval+no tiling) | 2.49 | 1.1
 A100 (Colab) (Torch-TensorRT8.2GA+ffmpeg+FrameEval) | 5.6 | 2.6 | 1.1
 3090² (C++ TRT+vs_threads=20+num_threads=2+no tiling+opset14) | 3.4 | 1.5 | 0.7
 2x3090² (C++ TRT+vs_threads=20+num_threads=2+no tiling+opset14) | 7.0 | 3.2 | 1.5
+4090 (TRT9.1+num_threads=4+num_streams=2+(fp16+bf16)+RGBS+op14) | ? | ? / 2.6* | ? / 1.2*
 
-ESRGAN 2x (64mb) (23b+64nf) | 480p | 720p | 1080p
-------------  | ---  | ---- | ------
-4090 (C++ TensorRT8.4GA+ffmpeg+int8+12 vs threads+4 num_streams+fp16) | ? / 6.1* | ? / ? | ? / ?
-4090 (C++ TensorRT8.4GA+ffmpeg+int8+12 vs threads+1 num_streams+int8) | ? / 17.4* | ? / 7.1* | ? / 3.1*
-
-Note: The offical RealESRGAN repository uses 6b (6 blocks) for the anime model.
+Note: The offical RealESRGAN-6b model uses 6 blocks for the anime model and uses the ESRGAN architecture.
 
 RealESRGAN (4x) (6b+64nf) | 480p | 720p | 1080p
 ------------  | ---  | ---- | ------
@@ -601,91 +589,33 @@ V100 (Colab High RAM) (vs+TensorRT8.2GA+x264+C++ TRT+num_streams=1+no tiling) | 
 A100 (vs+TensorRT8.2GA+x264 (--opencl)+C++ TRT+num_streams=3+no tiling) | 14.65 | 6.74 | 2.76
 3090² (C++ TRT+vs_threads=20+num_threads=2+no tiling+opset14) | 11 | 4.8 | 2.3
 2x3090² (C++ TRT+vs_threads=10+num_threads=2+no tiling+opset14) | 22 | 9.5 | 4.2
-4090 (C++ TensorRT8.4GA+ffmpeg+12 vs threads+1 num_streams+ffv1+opset16+fp16) | 19 / 19* (2 streams) | ? | ?
-4090 (C++ TensorRT8.4GA+ffmpeg+12 vs threads+1 num_streams+ffv1+opset16+int8) | 34 (4 streams) / 50* (6 streams) | ? / ? | ? / 5.7* (1 stream)
-4090³ (C++ TensorRT8.5+vs_threads=4+num_streams=1+fp16+(--heuristic) | ? | ? / 6.9* | ? / 3.1*
-4090³ (C++ TensorRT8.5+vs_threads=4+num_streams=1+fp16) | ? | ? / 6.9* | ? / 3.1*
+4090 (TRT9.1+num_threads=4+num_streams=2+(fp16+bf16)+RGBH+op18) | ? | ? / 8.8* | ? / 3.9*
 
-RealESRGAN (2x) (6b+64nf) | 480p | 720p | 1080p
-------------  | ---  | ---- | ------
-1070ti (vs+TensorRT8+ffmpeg+C++ TRT+num_streams=1+no tiling+opset15) | 0.9 | 0.8 | 0.3
-3060ti (vs+TensorRT8+ffmpeg+C++ TRT+num_streams=1) | ? | 3.12 | 1.4
-V100 (Colab High RAM / 8CPU) (vs+TensorRT8.2GA+x264 (--opencl)+C++ TRT+num_streams=3+no tiling+opset15) | 5.09 | 4.56 | 2.02
-V100 (Colab High RAM / 8CPU) (vs+TensorRT8.2GA+ffmpeg+C++ TRT+num_streams=3+no tiling+opset15) | 5.4 | 4.8 | 2.2
-3090² (C++ TRT+vs_threads=20+num_threads=6+no tiling+opset16) (+dropout) | 13 | 5.8 | 2.7
-2x3090² (C++ TRT+vs_threads=20+num_threads=6+no tiling+opset16) (+dropout) | 26 | 11 | 5.3
-4090 (C++ TRT+TensorRT8.4GA+vs_threads=6+num_threads=6+no tiling+opset16+"--best") (+dropout) | ? | ? | ? / 12*
-
-RealESRGAN (2x) (3b+64nf+dropout)ⓘ | 480p | 720p | 1080p
-------------  | ---  | ---- | ------
-3060ti (vs+TensorRT8+ffmpeg+C++ TRT+num_streams=2) | ? | 5.69 | 2.64
-V100 (Colab High RAM / 8CPU) (vs+TensorRT8.4GA+ffmpeg+C++ TRT+num_streams=4+no tiling+opset15) | 10 | 9.4 | 4.2
-3090² (C++ TRT+vs_threads=20+num_threads=6+no tiling+opset15) | 24 | 11 | 5.2
-2x3090 (C++ TRT+vs_threads=20+num_threads=6+no tiling+opset15) | 51 | 23 | 10
-
-Rife4.6 technically is fastmode=True, since contextnet/unet was removed.
-
-Rife4+vs (fastmode False, ensemble False) | 480p | 720p | 1080p 
+Rife4+vs (ensemble False) | 480p | 720p | 1080p 
 ---  | -------  | ------- | ------- 
-1070ti (vs+ffmpeg+ModifyFrame) | 61 | 30 | 15
-3060ti (vs+ffmpeg+ModifyFrame) | ? | 45 | 24
+4090 rife4.0 (fast=True) (TRT9.1+num_threads=4+num_streams=2+(fp16+bf16)+RGBH+op18) | ? | ? / 415.8* | ? / 186.7*
+4090 rife4.2 (fast=True) (TRT9.1+num_threads=4+num_streams=2+(fp16+bf16)+RGBH+op18) | ? | ? / 418.9* | ? / 187.5*
+4090 rife4.3 (fast=True) (TRT9.1+num_threads=4+num_streams=2+(fp16+bf16)+RGBH+op18) | ? | ? / 419.1* | ? / 187.5*
+4090 rife4.5 (TRT9.1+num_threads=4+num_streams=2+(fp16+bf16)+RGBH+op18) | ? | ? / 418.6* | ? / 187.6*
+4090 rife4.6 (TRT9.1+num_threads=4+num_streams=2+(fp16+bf16)+RGBH+op18) | ? | ? / 417.8* | ? / 187*
+4090 rife4.6 (ncnn+num_threads=4+num_streams=2+RGBS) | ? | ? / 139.3* | ? / 63*
+Steam Deck rife4.6 (ncnn+RGBS) | ? | ? / 19.2* | ? / 8.8*
+4090 rife4.7 (TRT9.1+num_threads=4+num_streams=2+(fp16+bf16)+RGBH+op18) | ? | ? / 278.4* | ? / 135.7*
+4090 rife4.7 (ncnn+num_threads=4+num_streams=2+RGBS) | ? | ? / 130.5* | ? / 58.2*
+Steam Deck rife4.7 (ncnn+RGBS) | ? | ? / 15.2* | ? / 7.2*
+4090 rife4.10 (TRT9.1+num_threads=4+num_streams=2+(fp16+bf16)+RGBH+op18) | ? | ? / 247* | ? / 123*
+4090 rife4.10 (ncnn+num_threads=4+num_streams=2+RGBS) | ? | ? / 120.7* | ? / 53.3*
+4090 rife4.12-lite (TRT9.1+num_threads=4+num_streams=2+(fp16+bf16)+RGBH+op18) | ? | ? / 266.8* | ? / 133*
+4090 rife4.12-lite (ncnn+num_threads=4+num_streams=2+RGBS) | ? | ? / 129* | ? / 56.8*
 
-Rife4+vs (fastmode False, ensemble True) | 480p | 720p | 1080p 
+Rife4+vs (ensemble True) | 480p | 720p | 1080p 
 ---  | -------  | ------- | ------- 
-1070ti Python (vs+ffmpeg+ModifyFrame) | 27 | 13 | 9.6
-1070ti C++ NCNN | ? | ? | 10
-3060ti (vs+ffmpeg+ModifyFrame) | ? | 36 | 20 |
-3090² (CUDA+vs_threads=20) | 70 | 52 | 27
-3090² (C++ NCNN+vs_threads=20+ncnn_threads=8) | 137 | 65 | 31
-V100 (Colab) (vs+ffmpeg+ModifyFrame) | 30 | 16 | 7.3
-V100 (Colab High RAM) (vs+x264+ModifyFrame) | 48.5 | 33 | 19.2
-V100 (Colab High RAM) (vs+x264+FrameEval) | 48.2 | 35.5 | 20.6
-V100 (Colab High RAM) (vs+x265+FrameEval) | 15.2 | 9.7 | 4.6
-V100 (Colab High RAM / 8CPU) (vs+x264+C++ NCNN (7 threads)) | 70 | 35 | 17
-A100 (Colab) (vs+CUDA+ffmpeg+ModifyFrame) | 54 | 39 | 23
-A100 (Colab) (jpg+CUDA+ffmpeg+ModifyFrame) | ? | ? | 19.92 (14 Threads)
-4090 (vs+CUDA+ffmpeg+FrameEval+12 vs threads) (rife40) | 61 | 61 | 36
-4090 (ncnn+8 threads+12 vs threads) (rife4.0) | 254 | 130 | 60
-
-Rife4+vs (fastmode True, ensemble False) | 480p | 720p | 1080p 
----  | -------  | ------- | ------- 
-1070ti Python (ffmpeg+ModifyFrame) | 62 | 31 | 14
-1070ti (C++ NCNN) (rife46) | ? | ? | 30
-1070ti (TensorRT8.5+num_streams=3) (rife46) | ? | ? | 27
-3060ti (CUDA+ffmpeg+ModifyFrame) | ? | 66 | 33 |
-3090² (CUDA+ffmpeg+FrameEval+vs_threads=20) | 121 | 80 | 38
-3090² (C++ NCNN+vs_threads=20+ncnn_threads=8) | 341 | 142 | 63
-3090³ (TensorRT8.5+6 vs_threads) | ? / 331.9* (9 streams) | ? / 275.3* (7 streams) | ? / 166.3* (7 streams)
-4090 (ncnn+8 threads+12 vs threads) (rife4.0) | 470 | 198 | 98
-4090 (ncnn+8 threads+12 vs threads) (rife4.4) | - | - | 98
-4090 (ncnn+8 threads+12 vs threads+ffv1) (rife4.4) |- |	- |	129 / 128*
-4090 (ncnn+8 threads+12 vs threads) (rife4.6) | 455 | 215 | 100 / 136*
-4090² (ncnn+2 threads+4 vs threads+ffmpeg (ultrafast)) (rife4.6) | ? | ? | 164
-4090 (TensorRT8.5+num_streams 8+num_threads=6+stacking method) (rife46) | ? | ? | ? / 146*
-4090 (TensorRT8.5+num_streams 8+num_threads=6+int8+ffv1+stacking method) (rife46)| ? | ? | 123 / 156*
-4090³ (TensorRT8.5+vs_threads=4+fp16) (rife46) | ? | ? / 541* (num_streams=14) | ? / 288* (num_streams=10)
-V100 (Colab) (ffmpeg+ModifyFrame) | 34 | 17 | 7.6
-V100 (Colab High RAM / 8CPU) (vs+x264+FrameEval) | 64 | 43 | 25
-V100 (Colab High RAM / 8CPU) (vs+x264+C++ NCNN (8 threads)) | 136 | 65 | 29
-A100 (Colab) (ffmpeg+ModifyFrame) | 92 | 56 | 29
-A100 (Colab/12CPU) (ncnn+8 threads+12 vs threads) (rife40) | 208 | 103 | 46
-A100 (Colab/12CPU) (ncnn+8 threads+12 vs threads+ffv1) (rife40) | 87 | 97 | 48
-6700xt (vs_trheads=4, num_threads=2) | ? / 258.5* | ? / 122.4* | ? / 55.8*
-
-Rife4+vs (fastmode True, ensemble True) | 480p | 720p | 1080p 
----  | -------  | ------- | ------- 
-1070ti (PyTorch+ffmpeg+ModifyFrame) | 41 | 20 | 9.8 
-1070ti (C++ NCNN) (rife46) | ? | ? | 16
-1070ti (TensorRT8.5+num_streams=2) (rife46) | ? | ? | 14
-3060ti (ffmpeg+ModifyFrame) | ? | 49 | 24 
-3090¹ (ffmpeg+ModifyFrame) | ? | 90.3 | 45
-4090 (vs+CUDA+ffmpeg+FrameEval) (rife46) | 84 | 80 | 41
-4090 (ncnn+8 threads+12 vs threads) (rife4.6) | 280 | 165 | 76
-4090 (ncnn+8 threads+12 vs threads) (rife4.6+ffv1) | 222 | 162 | 80
-4090³ (TensorRT8.5+vs_threads=4+fp16) (rife46) | ? | 320 / 401.6* (num_streams=14) | 160 / 207* (num_streams=10)
-A100 (Colab/12CPU) (ncnn+8 threads+12 vs threads) (rife46) | 154 | 86 | 43
-A100 (Colab/12CPU) (ncnn+8 threads+12 vs threads+ffv1) (rife46) | 86 | 86 | 43
-6700xt (vs_trheads=4, num_threads=2) | ? / 129.7* | ? / 60.4* | ? / 28*
+4090 rife4.6 (TRT9.1+num_threads=4+num_streams=2+(fp16+bf16)+RGBH+op18) | ? | ? / 350.7* | ? / 158.7*
+4090 rife4.6 (ncnn+num_threads=4+num_streams=2+RGBS) | ? | ? / 103.2* | ? / 47.9*
+4090 rife4.7 (TRT9.1+num_threads=4+num_streams=2+(fp16+bf16)+RGBH+op18) | ? | ? / 231.7* | ? / 104.7*
+4090 rife4.10 (TRT9.1+num_threads=4+num_streams=2+(fp16+bf16)+RGBH+op18) | ? | ? / 206.9* | ? / 91.9*
+4090 rife4.12-lite (TRT9.1+num_threads=4+num_streams=2+(fp16+bf16)+RGBH+op18) | ? | ? / 228.2* | ? / 108.9*
+4090 rife4.12-lite (ncnn+num_threads=4+num_streams=2+RGBS) | ? | ? / 98* | ? / 44.3*
 
 * Benchmarks made with [HolyWu version](https://github.com/HolyWu/vs-gmfss_union) with threading and partial TensorRT and without setting `tactic` to `JIT_CONVOLUTIONS` and `EDGE_MASK_CONVOLUTIONS` due to performance penalty. I added [a modified version](https://github.com/styler00dollar/vs-gmfss_union) as a plugin to VSGAN, but I need to add enhancements to my own repo later.
 
@@ -698,53 +628,9 @@ GMFSS_fortuna_union | 480p | 720p | 1080p
 4090 (num_threads=8, num_streams=2, RGBH, TRT8.6.1, matmul_precision=medium) | ? | ? / 50.4* | ? / 16.9*
 4090 (num_threads=8, num_streams=2, RGBH, TRT8.6.1, matmul_precision=medium, @torch.compile(mode="default", fullgraph=True)) | ? | ? / 50.6* | ? / 17*
 
-EGVSR (4x, interval=5) | 480p | 720p | 1080p 
------------  | ---- | ---- | ----
-1070ti | 4.4 | Ram OOM / 2.2* | VRAM OOM
-
-RealBasicVSR | 480p | 720p | 1080p 
------------  | ---- | ---- | ----
-1070ti | 0.3 | OOM | OOM
-A100 (Colab) | 1.2 | ? | ?
-
-Sepconv | 480p | 720p | 1080p 
------------  | ---- | ---- | ----
-V100 (Colab) | 22 | 11 | 4.9
-3090² (vs+CUDA) | 30 | 14 | 6.2
-
-CAIN (2 groups) | 480p | 720p | 1080p 
------------  | ---- | ---- | ----
-A100 (Colab) | 76 | 47 | 25
-3090² (vs+CUDA) | 120 | 65 | 31
-
-FILM | 480p | 720p | 1080p 
--------- | ---- | ---- | ----
-V100 (Colab High RAM) (vs+CUDA) | 9.8 | 4.7 | 2.1
-
-IFRNet (small model) | 480p | 720p | 1080p 
--------- | ---- | ---- | ----
-V100 (Colab High RAM / 8CPU) (vs+x264+FrameEval) | 78 | 47 | 23
-
-IFRNet (large model) | 480p | 720p | 1080p 
--------- | ---- | ---- | ----
-V100 (Colab High RAM / 8CPU) (vs+x264+FrameEval) | ? | ? | 15
-
 DPIR | 480p | 720p | 1080p 
 -------- | ---- | ---- | ----
-3090¹ (TensorRT8+C++ TRT+ffmpeg+vs threads=7+num_streams=5) | ? | ? | 16
-4090 (num_streams=13+12 vs threads) | 121 | 52 | 23
-4090 (num_streams=13+12 vs threads+thread_queue_size) | 121 | 54 | 23
-4090 (num_streams=13+12 vs threads+ffv1+thread_queue_size) | 121 | 55 | 25
-4090 (num_streams=13+12 vs threads+ffv1+int8) | ? | ? | 52
-4090 (num_streams=13+12 vs threads+ffv1+int8+thread_queue_size) | ? | ? | 44
-
-SCUNet | 480p | 720p | 1080p
--------- | ---- | ---- | ----
-4090 (12 vs threads) | 10 | ? | ?
-
-ST-MFNet | 480p | 720p | 1080p
--------- | ---- | ---- | ----
-1070ti | 1.6 | OOM | OOM
+4090 (TRT9.1+num_threads=4+num_streams=2+(fp16+bf16)+RGBH+op18) | ? | ? / 54* | ? / 24.4*
 
 <div id='license'/>
 

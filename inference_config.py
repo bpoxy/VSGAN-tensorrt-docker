@@ -13,8 +13,6 @@ from src.IFRNet import IFRNet
 from src.GMFupSS import GMFupSS
 from src.GMFSS_union import GMFSS_union
 from vsgmfss_union import gmfss_union
-from src.eisai import EISAI
-from src.film import FILM
 from src.M2M import M2M
 from src.sepconv_enhanced import sepconv
 from src.IFUNet import IFUNet
@@ -48,7 +46,7 @@ def inference_clip(video_path="", clip=None):
     # ddfi is passing clip
     if clip is None:
         # cfr video
-        clip = core.ffms2.Source(source=video_path, cache=False)
+        # clip = core.ffms2.Source(source=video_path, cache=False)
         # vfr video
         # clip = core.ffms2.Source(source=video_path, fpsnum = 24000, fpsden = 1001, cache=False)
         # vfr video (automatically set num and den)
@@ -58,10 +56,16 @@ def inference_clip(video_path="", clip=None):
         # clip = core.lsmas.LWLibavSource(source=video_path)
         # lsmash with hw decoding preferred
         # clip = core.lsmas.LWLibavSource(source=video_path, prefer_hw=3)
+        
+        # bestsource
+        clip = core.bs.VideoSource(source=video_path)
 
-        # resizing with descale
-        # Debilinear, Debicubic, Delanczos, Despline16, Despline36, Despline64, Descale
-        # clip = core.descale.Debilinear(clip, 1280, 720)
+    ###############################################
+    # RESIZE
+    ###############################################
+    # resizing with descale
+    # Debilinear, Debicubic, Delanczos, Despline16, Despline36, Despline64, Descale
+    # clip = core.descale.Debilinear(clip, 1280, 720)
 
     ###############################################
     # SIMILARITY
@@ -123,11 +127,6 @@ def inference_clip(video_path="", clip=None):
     # use gmfss_union instead for more speed
     # model_inference = GMFupSS(partial_fp16=False)
     # model_inference = GMFSS_union(partial_fp16=False)
-
-    # model_inference = EISAI() # 960x540
-
-    # FILM: model_choise="style", "l1" or "vgg"
-    # model_inference = FILM(model_choise="vgg")
 
     # model_inference = M2M()
 
