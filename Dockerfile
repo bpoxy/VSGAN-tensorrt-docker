@@ -1,52 +1,4 @@
 ############################
-# Vulkan
-#https://github.com/bitnimble/docker-vulkan/blob/master/docker/Dockerfile.ubuntu20.04
-#https://gitlab.com/nvidia/container-images/vulkan/-/blob/ubuntu16.04/Dockerfile
-############################
-FROM ubuntu:22.04 as vulkan-khronos
-
-RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
-  build-essential \
-  ca-certificates \
-  pkg-config \
-  git \
-  libegl1-mesa-dev \
-  libwayland-dev \
-  libx11-xcb-dev \
-  libxkbcommon-dev \
-  libxrandr-dev \
-  python3 \
-  python3-distutils \
-  wget && \
-  rm -rf /var/lib/apt/lists/*
-
-RUN wget https://github.com/Kitware/CMake/releases/download/v3.26.0-rc4/cmake-3.26.0-rc4-linux-x86_64.sh \
-  -q -O /tmp/cmake-install.sh && \
-  chmod u+x /tmp/cmake-install.sh && \
-  mkdir /usr/bin/cmake && \
-  /tmp/cmake-install.sh --skip-license --prefix=/usr/bin/cmake && \
-  rm /tmp/cmake-install.sh
-ENV PATH="/usr/bin/cmake/bin:${PATH}"
-
-RUN ln -s /usr/bin/python3 /usr/bin/python && \
-  git clone https://github.com/KhronosGroup/Vulkan-ValidationLayers.git /opt/vulkan && \
-  cd /opt/vulkan && \
-  mkdir build && cd build && ../scripts/update_deps.py && \
-  cmake -C helper.cmake -DCMAKE_BUILD_TYPE=Release .. && \
-  cmake --build . --config Release -- -j$(nproc) && make install && ldconfig && \
-  mkdir -p /usr/local/include/vulkan && cp -r Vulkan-Headers/build/install/include/vulkan/* /usr/local/include/vulkan && \
-  cp -r Vulkan-Headers/include/* /usr/local/include/vulkan && \
-  mkdir -p /usr/local/share/vulkan/registry && \
-  cp -r Vulkan-Headers/build/install/share/vulkan/registry/* /usr/local/share/vulkan/registry && \
-  git clone https://github.com/KhronosGroup/Vulkan-Loader /opt/vulkan-loader && \
-  cd /opt/vulkan-loader && \
-  mkdir build && cd build && ../scripts/update_deps.py && \
-  cmake -C helper.cmake -DCMAKE_BUILD_TYPE=Release .. && \
-  cmake --build . --config Release -- -j$(nproc) && make install && ldconfig && \
-  mkdir -p /usr/local/lib && cp -a loader/*.so* /usr/local/lib && \
-  rm -rf /opt/vulkan && rm -rf /opt/vulkan-loader
-
-############################
 # FFMPEG
 ############################
 FROM archlinux as ffmpeg-arch
@@ -76,7 +28,7 @@ RUN cp /home/makepkg/python311/bin/python3.11 /usr/bin/python
 ENV PYTHONPATH /home/makepkg/python311/bin/
 ENV PATH "/home/makepkg/python311/bin/:$PATH"
 
-RUN pip3 install "cython<3" meson
+RUN pip3 install cython meson
 
 ENV PATH "$PATH:/opt/cuda/bin/nvcc"
 ENV PATH "$PATH:/opt/cuda/bin"
@@ -93,12 +45,12 @@ ARG LDFLAGS="-Wl,-z,relro,-z,now"
 
 # master is broken https://github.com/sekrit-twc/zimg/issues/181
 # No rule to make target 'graphengine/graphengine/cpuinfo.cpp', needed by 'graphengine/graphengine/libzimg_internal_la-cpuinfo.lo'.  Stop.
-RUN wget https://github.com/sekrit-twc/zimg/archive/refs/tags/release-3.0.4.tar.gz && tar -zxvf release-3.0.4.tar.gz && cd zimg-release-3.0.4 && \
-  ./autogen.sh && ./configure --enable-static --disable-shared && make -j$(nproc) install
+RUN git clone https://github.com/sekrit-twc/zimg --depth 1 --recurse-submodules --shallow-submodules && cd zimg && \
+  ./autogen.sh && CFLAGS=-fPIC CXXFLAGS=-fPIC ./configure --enable-static --disable-shared && make -j$(nproc) && make install
 
 ENV PATH /usr/local/bin:$PATH
-RUN wget https://github.com/vapoursynth/vapoursynth/archive/refs/tags/R64.tar.gz && \
-  tar -zxvf R64.tar.gz && cd vapoursynth-R64 && ./autogen.sh && \
+RUN wget https://github.com/vapoursynth/vapoursynth/archive/refs/tags/R65.tar.gz && \
+  tar -zxvf R65.tar.gz && cd vapoursynth-R65 && ./autogen.sh && \
   PKG_CONFIG_PATH="/usr/lib/pkgconfig:/usr/local/lib/pkgconfig" ./configure --enable-static --disable-shared && \
   make && make install && cd .. && ldconfig
 
@@ -346,7 +298,7 @@ WORKDIR workspace
 RUN apt update -y
 RUN apt install autoconf libtool nasm ninja-build yasm python3.11 python3.11-venv python3.11-dev python3-pip wget git pkg-config python-is-python3 -y
 RUN apt --fix-broken install
-RUN pip install meson ninja "cython<3"
+RUN pip install meson ninja cython
 
 # install g++13
 RUN apt install build-essential manpages-dev software-properties-common -y
@@ -356,12 +308,15 @@ RUN update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-13 13
 RUN update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-13 13
 
 # zimg
+# setting pkg version manually since otherwise 'Version' field value '-1': version number is empty
 RUN apt-get install checkinstall -y
-RUN wget https://github.com/sekrit-twc/zimg/archive/refs/tags/release-3.0.4.tar.gz && tar -xzf release-3.0.4.tar.gz && \
-  cd zimg-release-3.0.4 && ./autogen.sh && CFLAGS=-fPIC CXXFLAGS=-fPIC ./configure --enable-static --disable-shared && make -j$(nproc) && checkinstall -y && \
-  apt install /workspace/zimg-release-3.0.4/zimg-release_3.0.4-1_amd64.deb -y
+RUN git clone https://github.com/sekrit-twc/zimg --recursive && cd zimg && \
+  ./autogen.sh && CFLAGS=-fPIC CXXFLAGS=-fPIC ./configure --enable-static --disable-shared && make -j$(nproc) && checkinstall -y -pkgversion=0.0 && \
+  apt install /workspace/zimg/zimg_0.0-1_amd64.deb -y
+
 # vapoursynth
-RUN git clone https://github.com/vapoursynth/vapoursynth && cd vapoursynth && \
+RUN wget https://github.com/vapoursynth/vapoursynth/archive/refs/tags/R65.tar.gz && \
+  tar -zxvf R65.tar.gz && mv vapoursynth-R65 vapoursynth && cd vapoursynth && \
   ./autogen.sh && CFLAGS=-fPIC CXXFLAGS=-fPIC ./configure --enable-static --disable-shared && make -j$(nproc) && make install && ldconfig
 
 # dav1d
@@ -489,6 +444,86 @@ RUN python3.11 -m pip install --upgrade pip setuptools wheel && python3.11 -m pi
   ENABLE_ROLLING=1 ENABLE_CONTRIB=1 MAKEFLAGS="-j$(nproc)" \
   python3.11 -m pip wheel . --verbose
 
+
+############################
+# TensorRT + ORT
+############################
+FROM nvidia/cuda:12.1.1-devel-ubuntu22.04 as TensorRT-ubuntu
+
+ARG DEBIAN_FRONTEND=noninteractive
+
+# install python
+# https://stackoverflow.com/questions/75159821/installing-python-3-11-1-on-a-docker-container
+# https://stackoverflow.com/questions/45954528/pip-is-configured-with-locations-that-require-tls-ssl-however-the-ssl-module-in
+# /usr/local/lib/libpython3.11.a(longobject.o): relocation R_X86_64_PC32 against symbol `_Py_NotImplementedStruct' can not be used when making a shared object; recompile with -fPIC
+# todo: test CFLAGS="-fPIC -march=native"
+RUN apt update -y && apt install liblzma-dev libbz2-dev ca-certificates openssl libssl-dev libncurses5-dev libsqlite3-dev libreadline-dev libtk8.6 libgdm-dev \
+  libdb4o-cil-dev libpcap-dev software-properties-common wget zlib1g-dev -y && \
+  wget https://www.python.org/ftp/python/3.11.3/Python-3.11.3.tar.xz && \
+  tar -xf Python-3.11.3.tar.xz && cd Python-3.11.3 && \
+  CFLAGS=-fPIC ./configure --with-openssl-rpath=auto --enable-optimizations CFLAGS=-fPIC && \
+  make -j$(nproc) && make altinstall && make install
+# todo: update-alternatives may not be required
+RUN update-alternatives --install /usr/bin/python python /usr/local/bin/python3.11 1 && \
+  update-alternatives --install /usr/bin/pip pip /usr/local/bin/pip3.11 1 && \
+  cp /usr/local/bin/python3.11 /usr/local/bin/python && \
+  cp /usr/local/bin/pip3.11 /usr/local/bin/pip && \
+  cp /usr/local/bin/pip3.11 /usr/local/bin/pip3
+
+# required since ModuleNotFoundError: No module named 'pip' with nvidia pip packages, even if cli works
+RUN wget "https://bootstrap.pypa.io/get-pip.py" && python get-pip.py --force-reinstall
+
+# TensorRT9
+# trt9.2 with whl since apt still only has 8.6
+# https://github.com/samurdhikaru/TensorRT/blob/dev/release-9.0-EA/docker/ubuntu-22.04.Dockerfile
+# todo: check what is required (needed for mlrt)
+# TensorRT requires TensorRT https://github.com/NVIDIA/TensorRT/issues/85
+RUN apt-get update && apt-get install -y --no-install-recommends libnvinfer8 libnvonnxparsers8 libnvparsers8 libnvinfer-plugin8 libnvinfer-dev libnvonnxparsers-dev \
+  libnvparsers-dev libnvinfer-plugin-dev python3-libnvinfer tensorrt python3-libnvinfer-dev -yf --reinstall && apt-get autoclean -y && apt-get autoremove -y && apt-get clean -y
+RUN apt-get install unzip wget git -y && wget https://pypi.nvidia.com/tensorrt-libs/tensorrt_libs-9.2.0.post12.dev5-py2.py3-none-manylinux_2_17_x86_64.whl \ 
+        && mkdir tensorrt-wheel-9.2.0 \
+        && unzip tensorrt_libs-9.2.0.post12.dev5-py2.py3-none-manylinux_2_17_x86_64.whl -d tensorrt-wheel-9.2.0 \
+        && cp tensorrt-wheel-9.2.0/tensorrt_libs/*.so* /usr/lib/x86_64-linux-gnu \
+        && cd /usr/lib/x86_64-linux-gnu \
+        && ldconfig
+# Install Cmake (TensorRT crashes with new cmake)
+RUN cd /tmp && \
+    wget https://github.com/Kitware/CMake/releases/download/v3.14.4/cmake-3.14.4-Linux-x86_64.sh && \
+    chmod +x cmake-3.14.4-Linux-x86_64.sh && \
+    ./cmake-3.14.4-Linux-x86_64.sh --prefix=/usr/local --exclude-subdir --skip-license && \
+    rm ./cmake-3.14.4-Linux-x86_64.sh
+# compiling
+RUN git clone https://github.com/NVIDIA/TensorRT && cd TensorRT && git switch release/9.2 && git submodule update --init --recursive
+RUN cd TensorRT && mkdir -p build && cd build && cmake .. -DTENSORRT_ROOT=/workspace/TensorRT -DTRT_LIB_DIR=/usr/lib/x86_64-linux-gnu -DGPU_ARCHS="60 61 70 75 80 86 87 89 90" -DTRT_OUT_DIR=`pwd`/out && make -j$(nproc) && make install
+
+# ORT
+# onnxruntime requires working tensorrt installation and thus can't be easily seperated into a seperate instance
+# https://github.com/microsoft/onnxruntime/blob/main/dockerfiles/Dockerfile.tensorrt
+ARG ONNXRUNTIME_REPO=https://github.com/Microsoft/onnxruntime
+ARG ONNXRUNTIME_BRANCH=rel-1.16.3
+ARG CMAKE_CUDA_ARCHITECTURES=37;50;52;60;61;70;75;80;89
+
+RUN apt-get update &&\
+    apt-get install -y sudo git bash unattended-upgrades
+RUN unattended-upgrade
+
+WORKDIR /code
+ENV PATH /usr/local/nvidia/bin:/usr/local/cuda/bin:${PATH}
+
+# cmake 3.28 (CMake 3.26 or higher is required)
+RUN apt-get -y update && apt install wget && wget https://github.com/Kitware/CMake/releases/download/v3.28.0-rc1/cmake-3.28.0-rc1-linux-x86_64.sh  && \
+    chmod +x cmake-3.28.0-rc1-linux-x86_64.sh  && sh cmake-3.28.0-rc1-linux-x86_64.sh  --skip-license && \
+    cp /code/bin/cmake /usr/bin/cmake && cp /code/bin/cmake /usr/lib/cmake && \
+    cp /code/bin/cmake /usr/local/bin/cmake && cp /code/bin/ctest /usr/local/bin/ctest && cp -r /code/share/cmake-3.28 /usr/local/share/ && \
+    rm -rf cmake-3.28.0-rc1-linux-x86_64.sh 
+
+# Prepare onnxruntime repository & build onnxruntime with TensorRT
+# --parallel 6 for 6 compile threads, using all threads ooms my ram
+RUN git clone --single-branch --branch ${ONNXRUNTIME_BRANCH} --recursive ${ONNXRUNTIME_REPO} onnxruntime &&\
+    /bin/sh onnxruntime/dockerfiles/scripts/install_common_deps.sh &&\
+    cd onnxruntime && PYTHONPATH=/usr/bin/python3 /bin/sh build.sh --parallel 6 --allow_running_as_root --build_shared_lib --cuda_home /usr/local/cuda \
+      --cudnn_home /usr/lib/x86_64-linux-gnu/ --use_tensorrt --tensorrt_home /usr/lib/x86_64-linux-gnu/ --config Release --build_wheel --skip_tests --skip_submodule_sync --cmake_extra_defines '"CMAKE_CUDA_ARCHITECTURES='${CMAKE_CUDA_ARCHITECTURES}'"'
+
 ############################
 # VSGAN
 ############################
@@ -496,17 +531,9 @@ RUN python3.11 -m pip install --upgrade pip setuptools wheel && python3.11 -m pi
 # https://gitlab.com/nvidia/container-images/cuda/blob/master/dist/11.4.2/ubuntu2204/base/Dockerfile
 FROM ubuntu:22.04 as base
 ARG DEBIAN_FRONTEND=noninteractive
-
-COPY --from=vulkan-khronos /usr/local/bin /usr/local/bin
-COPY --from=vulkan-khronos /usr/local/lib /usr/local/lib
-COPY --from=vulkan-khronos /usr/local/include/vulkan /usr/local/include/vulkan
-COPY --from=vulkan-khronos /usr/local/share/vulkan /usr/local/share/vulkan
-
-COPY nvidia_icd.json /etc/vulkan/icd.d/nvidia_icd.json
-
-ARG DEBIAN_FRONTEND=noninteractive
 ENV NVARCH x86_64
 ENV NVIDIA_REQUIRE_CUDA "cuda>=11.4"
+COPY nvidia_icd.json /etc/vulkan/icd.d/nvidia_icd.json
 
 LABEL maintainer "NVIDIA CORPORATION <cudatools@nvidia.com>"
 RUN apt-get update && apt-get install -y --no-install-recommends \
@@ -573,22 +600,20 @@ RUN apt-get -y update && apt install wget && wget https://github.com/Kitware/CMa
   cp /workspace/bin/cmake /usr/local/bin/cmake && cp -r /workspace/share/cmake-3.23 /usr/local/share/
 
 # zimg
+# setting pkg version manually since otherwise 'Version' field value '-1': version number is empty
 RUN apt-get install checkinstall -y
-RUN apt update -y && \
-  apt install fftw3-dev python-is-python3 pkg-config python3-pip git p7zip-full autoconf libtool yasm ffmsindex libffms2-5 libffms2-dev -y && \
-  wget https://github.com/sekrit-twc/zimg/archive/refs/tags/release-3.0.4.zip && 7z x release-3.0.4.zip && \
-  cd zimg-release-3.0.4 && ./autogen.sh && ./configure && make -j$(nproc) && checkinstall -y
+RUN apt install fftw3-dev python-is-python3 pkg-config python3-pip git p7zip-full autoconf libtool yasm ffmsindex libffms2-5 libffms2-dev -y && \
+  git clone https://github.com/sekrit-twc/zimg --depth 1 --recurse-submodules --shallow-submodules && cd zimg && \
+  ./autogen.sh && CFLAGS=-fPIC CXXFLAGS=-fPIC ./configure --enable-static --disable-shared && make -j$(nproc) && checkinstall -y -pkgversion=0.0 && \
+  apt install /workspace/zimg/zimg_0.0-1_amd64.deb -y
 
 # vapoursynth
-RUN pip install --upgrade pip && pip install "cython<3" && git clone https://github.com/vapoursynth/vapoursynth && \
+RUN pip install --upgrade pip && pip install cython && git clone https://github.com/vapoursynth/vapoursynth && \
   cd vapoursynth && ./autogen.sh && \
   ./configure && make -j$(nproc) && make install && cd .. && ldconfig && \
   cd vapoursynth && python setup.py bdist_wheel
 
-# todo: check what is required (needed for mlrt)
-RUN apt-get update && apt-get install -y --no-install-recommends libnvinfer8 libnvonnxparsers8 libnvparsers8 libnvinfer-plugin8 libnvinfer-dev libnvonnxparsers-dev \
-  libnvparsers-dev libnvinfer-plugin-dev python3-libnvinfer tensorrt python3-libnvinfer-dev -yf --reinstall && apt-get autoclean -y && apt-get autoremove -y && apt-get clean -y
-
+#################################################################
 # pycuda
 RUN git clone https://github.com/inducer/pycuda --recursive && cd pycuda && python setup.py bdist_wheel
 
@@ -596,6 +621,19 @@ RUN git clone https://github.com/inducer/pycuda --recursive && cd pycuda && pyth
 RUN pip install numpy && pip install docutils pygments && git clone https://github.com/hahnec/color-matcher && cd color-matcher && python setup.py bdist_wheel
 
 # vs-mlrt
+# trt9.2 with whl since apt still only has 8.6
+RUN apt-get install unzip wget git -y && wget https://pypi.nvidia.com/tensorrt-libs/tensorrt_libs-9.2.0.post12.dev5-py2.py3-none-manylinux_2_17_x86_64.whl \ 
+        && mkdir tensorrt-wheel-9.2.0 \
+        && unzip tensorrt_libs-9.2.0.post12.dev5-py2.py3-none-manylinux_2_17_x86_64.whl -d tensorrt-wheel-9.2.0 \
+        && cp tensorrt-wheel-9.2.0/tensorrt_libs/*.so* /usr/lib/x86_64-linux-gnu \
+        && cd /usr/lib/x86_64-linux-gnu \
+        && ldconfig
+COPY --from=TensorRT-ubuntu /TensorRT/build/out/libnvinfer_plugin.so* /TensorRT/build/out/libnvinfer_vc_plugin.so* /TensorRT/build/out/libnvonnxparser.so* /usr/lib/x86_64-linux-gnu/
+COPY --from=TensorRT-ubuntu /usr/lib/x86_64-linux-gnu/libcudnn*.so*  /usr/lib/x86_64-linux-gnu/
+RUN ln -s /usr/lib/x86_64-linux-gnu/libnvinfer.so.9 /usr/lib/libnvinfer.so
+RUN ldconfig
+RUN git clone https://github.com/NVIDIA/TensorRT && cd TensorRT && git switch release/9.2
+ENV CPLUS_INCLUDE_PATH="/workspace/TensorRT/include"
 # upgrading g++
 RUN apt install build-essential manpages-dev software-properties-common -y && add-apt-repository ppa:ubuntu-toolchain-r/test -y && \
   apt update -y && apt install gcc-11 g++-11 -y && update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-11 11 && \
@@ -608,41 +646,28 @@ RUN apt install build-essential manpages-dev software-properties-common -y && ad
 RUN pip install meson ninja && git clone https://github.com/Irrational-Encoding-Wizardry/descale && cd descale && meson build && ninja -C build && ninja -C build install 
 
 ########################
-# vulkan
-RUN apt install vulkan-tools libvulkan1 libvulkan-dev -y && apt-get autoclean -y && apt-get autoremove -y && apt-get clean -y
-
-RUN wget https://sdk.lunarg.com/sdk/download/1.3.261.1/linux/vulkansdk-linux-x86_64-1.3.261.1.tar.xz && tar -xf vulkansdk-linux-x86_64-1.3.261.1.tar.xz && \
-  rm -rf vulkansdk-linux-x86_64-1.3.261.1.tar.xz
-ENV VULKAN_SDK=/workspace/1.3.261.1/x86_64/
-
-# rife ncnn
-RUN apt install nasm -y && wget https://github.com/Netflix/vmaf/archive/refs/tags/v2.3.1.tar.gz && \
-  # VMAF
-  tar -xzf v2.3.1.tar.gz && cd vmaf-2.3.1/libvmaf/ && \
-  meson build --buildtype release && ninja -C build && \
-  ninja -C build install && cd /workspace && rm -rf v2.3.1.tar.gz vmaf-2.3.1 && \
-  git clone https://github.com/HomeOfVapourSynthEvolution/VapourSynth-VMAF && cd VapourSynth-VMAF && meson build && \
-  ninja -C build && ninja -C build install && \
-
-  # MISC
-  git clone https://github.com/vapoursynth/vs-miscfilters-obsolete && cd vs-miscfilters-obsolete && meson build && \
-  ninja -C build && ninja -C build install && \
-
-  # RIFE
-  git clone https://github.com/styler00dollar/VapourSynth-RIFE-ncnn-Vulkan && cd VapourSynth-RIFE-ncnn-Vulkan && \
-  git submodule update --init --recursive --depth 1 && meson build && ninja -C build && ninja -C build install
-
-########################
 # vs plugins
 # Vapoursynth-VFRToCFR
 RUN git clone https://github.com/Irrational-Encoding-Wizardry/Vapoursynth-VFRToCFR && cd Vapoursynth-VFRToCFR && \
   mkdir build && cd build && meson --buildtype release .. && ninja && ninja install
 
 # vapoursynth-mvtools
-RUN git clone https://github.com/dubhater/vapoursynth-mvtools && cd vapoursynth-mvtools && ./autogen.sh && ./configure && make -j$(nproc) && make install 
+RUN apt install nasm -y && git clone https://github.com/dubhater/vapoursynth-mvtools && cd vapoursynth-mvtools && ./autogen.sh && ./configure && make -j$(nproc) && make install 
 
 # fmtconv
 RUN git clone https://github.com/EleonoreMizo/fmtconv && cd fmtconv/build/unix/ && ./autogen.sh && ./configure && make -j$(nproc) && make install
+
+# VMAF
+RUN apt install nasm xxd -y && wget https://github.com/Netflix/vmaf/archive/refs/tags/v3.0.0.tar.gz && \
+  tar -xzf v3.0.0.tar.gz && cd vmaf-3.0.0/libvmaf/ && \
+  meson build --buildtype release -Denable_cuda=true -Denable_avx512=true && ninja -C build && \
+  ninja -C build install && cd /workspace && rm -rf v3.0.0.tar.gz vmaf-3.0.0 && \
+  git clone https://github.com/HomeOfVapourSynthEvolution/VapourSynth-VMAF && cd VapourSynth-VMAF && meson build && \
+  ninja -C build && ninja -C build install
+
+# MISC
+RUN git clone https://github.com/vapoursynth/vs-miscfilters-obsolete && cd vs-miscfilters-obsolete && meson build && \
+  ninja -C build && ninja -C build install
 
 # akarin vs
 RUN apt install llvm-15 llvm-15-dev -y && git clone https://github.com/AkarinVS/vapoursynth-plugin && \
@@ -706,12 +731,11 @@ RUN MAKEFLAGS="-j$(nproc)" pip install timm wget cmake scipy mmedit meson ninja 
   # installing pip version due to
   # ModuleNotFoundError: No module named 'torch_tensorrt.fx.converters.impl'
   pip install torch-tensorrt-fx-only==1.5.0.dev0 && \
+  # holywu plugins currently only work with trt8.6
   pip install nvidia-pyindex tensorrt==8.6.1 && pip install polygraphy && rm -rf /root/.cache/
 
-# onnxruntime nightly (todo check: does pypi have 3.11 support)
-# https://aiinfra.visualstudio.com/PublicPackages/_artifacts/feed/ORT-Nightly/PyPI/ort-nightly-gpu/overview
-RUN pip install coloredlogs flatbuffers numpy packaging protobuf sympy && \
-  pip install ort-nightly-gpu==1.17.0.dev20231006005 --index-url=https://aiinfra.pkgs.visualstudio.com/PublicPackages/_packaging/ORT-Nightly/pypi/simple/ --no-deps
+COPY --from=TensorRT-ubuntu /code/onnxruntime/build/Linux/Release/dist/onnxruntime_gpu-1.16.3-cp311-cp311-linux_x86_64.whl /workspace
+RUN pip install coloredlogs flatbuffers numpy packaging protobuf sympy onnxruntime_gpu-1.16.3-cp311-cp311-linux_x86_64.whl
 
 # holywu plugins
 RUN git clone https://github.com/styler00dollar/vs-gmfss_union && cd vs-gmfss_union && pip install . && cd /workspace && rm -rf vs-gmfss_union
@@ -740,20 +764,21 @@ RUN git clone https://github.com/onnx/onnx-tensorrt.git && \
 # ffmpeg: /usr/lib/x86_64-linux-gnu/libc.so.6: version `GLIBC_2.38' not found (required by ffmpeg)
 RUN mkdir /workspace/hotfix
 WORKDIR /workspace/hotfix
-RUN wget http://mirrors.kernel.org/ubuntu/pool/main/libt/libtirpc/libtirpc-dev_1.3.3+ds-1_amd64.deb \
-    http://mirrors.kernel.org/ubuntu/pool/main/libx/libxcrypt/libcrypt-dev_4.4.33-2_amd64.deb \
-    http://mirrors.kernel.org/ubuntu/pool/main/libn/libnsl/libnsl-dev_1.3.0-2build2_amd64.deb \
-    http://mirrors.kernel.org/ubuntu/pool/main/libx/libxcrypt/libcrypt1_4.4.33-2_amd64.deb \
-    http://archive.ubuntu.com/ubuntu/pool/main/g/glibc/libc6_2.38-1ubuntu6_amd64.deb \
-    http://archive.ubuntu.com/ubuntu/pool/main/g/glibc/libc6-dev_2.38-1ubuntu6_amd64.deb \
-    http://archive.ubuntu.com/ubuntu/pool/main/g/glibc/libc-bin_2.38-1ubuntu6_amd64.deb \
-    http://archive.ubuntu.com/ubuntu/pool/main/g/glibc/libc-dev-bin_2.38-1ubuntu6_amd64.deb \
-    http://security.ubuntu.com/ubuntu/pool/main/l/linux/linux-libc-dev_5.4.0-166.183_amd64.deb \
-    http://mirrors.kernel.org/ubuntu/pool/main/r/rpcsvc-proto/rpcsvc-proto_1.4.2-0ubuntu6_amd64.deb \
-    http://mirrors.kernel.org/ubuntu/pool/main/libt/libtirpc/libtirpc3_1.3.3+ds-1_amd64.deb
+RUN wget http://ftp.us.debian.org/debian/pool/main/libt/libtirpc/libtirpc-dev_1.3.4+ds-1_amd64.deb \
+    http://ftp.us.debian.org/debian/pool/main/libx/libxcrypt/libcrypt-dev_4.4.36-3_amd64.deb \
+    http://ftp.us.debian.org/debian/pool/main/libn/libnsl/libnsl-dev_1.3.0-3_amd64.deb \
+    http://ftp.us.debian.org/debian/pool/main/libx/libxcrypt/libcrypt1_4.4.36-3_amd64.deb \
+    http://ftp.us.debian.org/debian/pool/main/g/glibc/libc6_2.38-4_amd64.deb \
+    http://ftp.us.debian.org/debian/pool/main/g/glibc/libc6-dev_2.38-4_amd64.deb \
+    http://ftp.us.debian.org/debian/pool/main/g/glibc/libc-bin_2.38-4_amd64.deb \
+    http://ftp.us.debian.org/debian/pool/main/g/glibc/libc-dev-bin_2.38-4_amd64.deb \
+    http://ftp.us.debian.org/debian/pool/main/l/linux/linux-libc-dev_6.6.8-1_all.deb \
+    http://ftp.us.debian.org/debian/pool/main/r/rpcsvc-proto/rpcsvc-proto_1.4.3-1_amd64.deb \
+    http://ftp.us.debian.org/debian/pool/main/libt/libtirpc/libtirpc3_1.3.4+ds-1_amd64.deb
 
-####################
-
+############################
+# final
+############################
 FROM nvidia/cuda:12.1.1-runtime-ubuntu22.04 as final
 # maybe official tensorrt image is better, but it uses 20.04
 #FROM nvcr.io/nvidia/tensorrt:23.04-py3 as final
@@ -763,6 +788,11 @@ ENV NVIDIA_DRIVER_CAPABILITIES all
 
 WORKDIR workspace
 
+# due to cupy jitify
+# cub/detail/detect_cuda_runtime.cuh(39): warning: cuda_runtime_api.h: [jitify] File not found
+# ../util_type.cuh(42): warning: cuda.h: [jitify] File not found
+RUN apt update -y && apt install cuda-cudart-dev-12-1 linux-libc-dev -y
+
 # install python
 COPY --from=base /usr/local/bin/python /usr/local/bin/
 COPY --from=base /usr/local/lib/python3.11 /usr/local/lib/python3.11
@@ -770,9 +800,8 @@ COPY --from=base /workspace/Python-3.11.3/libpython3.11.so* /workspace/Python-3.
   /workspace/Python-3.11.3/libpython3.so /usr/lib
 
 # vapoursynth
-# todo: installing with deb?
-COPY --from=base /workspace/zimg-release-3.0.4/zimg-release_3.0.4-1_amd64.deb zimg-release_3.0.4-1_amd64.deb
-RUN apt install ./zimg-release_3.0.4-1_amd64.deb -y && rm -rf zimg-release_3.0.4-1_amd64.deb
+COPY --from=base /workspace/zimg/zimg_0.0-1_amd64.deb zimg_0.0-1_amd64.deb
+RUN apt install ./zimg_0.0-1_amd64.deb -y && rm -rf zimg_0.0-1_amd64.deb
 
 COPY --from=base /usr/local/lib/vapoursynth /usr/local/lib/vapoursynth
 COPY --from=base /usr/local/lib/x86_64-linux-gnu/vapoursynth /usr/local/lib/x86_64-linux-gnu/vapoursynth
@@ -781,24 +810,19 @@ COPY --from=base /usr/local/lib/libvapoursynth-script.so* /usr/local/lib/libvapo
 # vapoursynth
 COPY --from=base /usr/local/bin/vspipe  /usr/local/bin/vspipe
 
-# todo?: imagemagick
-# todo?: tensorflow
-
 # vs plugins
-COPY --from=base /usr/local/lib/libvstrt.so \
-  /usr/local/lib/libmvtools.so \
-  /usr/local/lib/libfmtconv.so /usr/local/lib/
+COPY --from=base /usr/local/lib/libvstrt.so /usr/local/lib/libmvtools.so /usr/local/lib/libfmtconv.so /usr/local/lib/
+COPY --from=base /usr/lib/x86_64-linux-gnu/libfftw3f.so* /usr/lib/x86_64-linux-gnu/
 
 COPY --from=bestsource-lsmash-ffms2-vs /usr/local/lib/liblsmash.so* /usr/local/lib/
 COPY --from=bestsource-lsmash-ffms2-vs /workspace/L-SMASH-Works/VapourSynth/build/libvslsmashsource.so /workspace/bestsource/build/libbestsource.so /usr/local/lib/vapoursynth
 COPY --from=bestsource-lsmash-ffms2-vs /workspace/ffms2/src/core/.libs/libffms2.so* /usr/lib/x86_64-linux-gnu/
 
-COPY --from=base /usr/local/lib/vapoursynth/libdescale.so /usr/local/lib/vapoursynth/librife.so /usr/local/lib/vapoursynth/libmiscfilters.so \
-  /usr/local/lib/vapoursynth/libvmaf.so /usr/local/lib/vapoursynth/libakarin.so \
-  /usr/local/lib/vapoursynth/libjulek.so /usr/local/lib/vapoursynth/libcas.so /usr/local/lib/vapoursynth/
+COPY --from=base /usr/local/lib/vapoursynth/libvmaf.so /usr/local/lib/vapoursynth/libdescale.so /usr/local/lib/vapoursynth/libakarin.so \
+  /usr/local/lib/vapoursynth/libmiscfilters.so /usr/local/lib/vapoursynth/libjulek.so /usr/local/lib/vapoursynth/libcas.so /usr/local/lib/vapoursynth/
 
-COPY --from=base /usr/local/lib/x86_64-linux-gnu/libvmaf.so /usr/local/lib/x86_64-linux-gnu/vapoursynth/libvfrtocfr.so \
-  /usr/local/lib/x86_64-linux-gnu/libawarpsharp2.so /usr/local/lib/x86_64-linux-gnu/
+COPY --from=base /usr/local/lib/x86_64-linux-gnu/vapoursynth/libvfrtocfr.so /usr/local/lib/x86_64-linux-gnu/libvmaf.so /usr/local/lib/x86_64-linux-gnu/vapoursynth/libvfrtocfr.so \
+  /usr/local/lib/x86_64-linux-gnu/libvmaf.so /usr/local/lib/x86_64-linux-gnu/libawarpsharp2.so /usr/local/lib/x86_64-linux-gnu/
 
 # av1an / rav1e / svt / aom
 COPY --from=base /usr/bin/av1an /usr/local/bin/rav1e /usr/bin/
@@ -810,8 +834,10 @@ COPY --from=ffmpeg-arch /home/makepkg/FFmpeg/ffmpeg /usr/local/bin/ffmpeg
 RUN rm -rf /usr/lib/x86_64-linux-gnu/libnvidia-ml.so.1 /usr/lib/x86_64-linux-gnu/libcuda.so.1 \
   /usr/lib/x86_64-linux-gnu/libnvcuvid.so.1 /usr/lib/x86_64-linux-gnu/libnvidia* /usr/lib/x86_64-linux-gnu/libcuda*
 
-COPY --from=base /usr/lib/x86_64-linux-gnu/libnvonnxparser*.so* /usr/lib/x86_64-linux-gnu/libnvinfer_plugin*.so* \
-  /usr/lib/x86_64-linux-gnu/libcudnn*.so* /usr/lib/x86_64-linux-gnu/libnvinfer*.so* /usr/lib/x86_64-linux-gnu/
+# trt
+COPY --from=TensorRT-ubuntu /TensorRT/build/out/libnvinfer_plugin.so* /TensorRT/build/out/libnvinfer_vc_plugin.so* /TensorRT/build/out/libnvonnxparser.so* /usr/lib/x86_64-linux-gnu/
+COPY --from=TensorRT-ubuntu /usr/lib/x86_64-linux-gnu/libcudnn*.so* /usr/lib/x86_64-linux-gnu/libnvinfer.so* /usr/lib/x86_64-linux-gnu/libnvinfer_builder_resource.so* \
+  /usr/lib/x86_64-linux-gnu/libnvonnxparser.so* /usr/lib/x86_64-linux-gnu/libnvparsers.so.8* /usr/lib/x86_64-linux-gnu/libnvinfer_plugin.so.8* /usr/lib/x86_64-linux-gnu/
 
 # ffmpeg (todo: try to make it fully static)
 COPY --from=base /usr/lib/x86_64-linux-gnu/libxcb*.so* /usr/lib/x86_64-linux-gnu/libgomp*.so* /usr/lib/x86_64-linux-gnu/libfontconfig.so* \
@@ -828,10 +854,7 @@ COPY --from=base /usr/lib/x86_64-linux-gnu/libGL.so* /usr/lib/x86_64-linux-gnu/l
   /usr/lib/x86_64-linux-gnu/libGLX.so* /usr/lib/x86_64-linux-gnu/libX11.so* /usr/lib/x86_64-linux-gnu/
 
 # move trtexec so it can be globally accessed
-COPY --from=base /usr/src/tensorrt/bin/trtexec /usr/bin
-
-# vulkan
-COPY --from=base /usr/lib/x86_64-linux-gnu/libvulkan*.so* /usr/lib/x86_64-linux-gnu/
+COPY --from=TensorRT-ubuntu /TensorRT/build/out/trtexec /usr/bin
 
 # ffmpeg hotfix
 COPY --from=base /workspace/hotfix/* /workspace

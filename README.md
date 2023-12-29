@@ -28,12 +28,10 @@ Table of contents
 Currently working networks:
 - ESRGAN with [rlaphoenix/VSGAN](https://github.com/rlaphoenix/VSGAN) and [HolyWu/vs-realesrgan](https://github.com/HolyWu/vs-realesrgan)
 - RealESRGAN / RealESERGANVideo with [xinntao/Real-ESRGAN](https://github.com/xinntao/Real-ESRGAN) and [rlaphoenix/VSGAN](https://github.com/rlaphoenix/VSGAN)
-- RealESRGAN ncnn with [styler00dollar/realsr-ncnn-vulkan-python](https://github.com/styler00dollar/realsr-ncnn-vulkan-python) and [media2x/realsr-ncnn-vulkan-python](https://github.com/media2x/realsr-ncnn-vulkan-python)
 - [Rife4 with HolyWu/vs-rife](https://github.com/HolyWu/vs-rife/) and [hzwer/Practical-RIFE](https://github.com/hzwer/Practical-RIFE) ([rife4.0](https://drive.google.com/file/d/1mUK9iON6Es14oK46-cCflRoPTeGiI_A9/view) [rife4.1](https://drive.google.com/file/d/1CPJOzo2CHr8AN3GQCGKOKMVXIdt1RBR1/view) [rife4.2](https://drive.google.com/file/d/1JpDAJPrtRJcrOZMMlvEJJ8MUanAkA-99/view)
 [rife4.3](https://drive.google.com/file/d/1xrNofTGMHdt9sQv7-EOG0EChl8hZW_cU/view) [rife4.4](https://drive.google.com/file/d/1eI24Kou0FUdlHLkwXfk-_xiZqKaZZFZX/view) [rife4.5](https://drive.google.com/file/d/17Bl_IhTBexogI9BV817kTjf7eTuJEDc0/view) [rife4.6](https://drive.google.com/file/d/1EAbsfY7mjnXNa6RAsATj2ImAEqmHTjbE/view) [rife4.7.1](https://drive.google.com/file/d/1s2zMMIJrUAFLexktm1rWNhlIyOYJ3_ju/view) [rife4.8.1](https://drive.google.com/file/d/1wZa3SyegLPUwBQWmoDLM0MumWd2-ii63/view)
-[rife4.9.2](https://drive.google.com/file/d/1UssCvbL8N-ty0xIKM5G5ZTEgp9o4w3hp/view) [rife4.10.1](https://drive.google.com/file/d/1WNot1qYBt05LUyY1O9Uwwv5_K8U6t8_x/view) [rife4.11.1](https://drive.google.com/file/d/1Dwbp4qAeDVONPz2a10aC2a7-awD6TZvL/view) [rife4.12.2](https://drive.google.com/file/d/1ZHrOBL217ItwdpUBcBtRE3XBD-yy-g2S/view))
+[rife4.9.2](https://drive.google.com/file/d/1UssCvbL8N-ty0xIKM5G5ZTEgp9o4w3hp/view) [rife4.10.1](https://drive.google.com/file/d/1WNot1qYBt05LUyY1O9Uwwv5_K8U6t8_x/view) [rife4.11.1](https://drive.google.com/file/d/1Dwbp4qAeDVONPz2a10aC2a7-awD6TZvL/view) [rife4.12.2](https://drive.google.com/file/d/1ZHrOBL217ItwdpUBcBtRE3XBD-yy-g2S/view) [rife4.12 lite](https://drive.google.com/file/d/1KoEJ5x6aisxOpkhdNptsGUrL3yf4iy8b/view) [rife4.13.2](https://drive.google.com/file/d/1mj9lH6Be7ztYtHAr1xUUGT3hRtWJBy_5/view) [rife4.13 lite](https://drive.google.com/file/d/1l3lH9QxQQeZVWtBpdB22jgJ-0kmGvXra/view))
 
-- RIFE ncnn with [styler00dollar/VapourSynth-RIFE-ncnn-Vulkan](https://github.com/styler00dollar/VapourSynth-RIFE-ncnn-Vulkan) and [HomeOfVapourSynthEvolution/VapourSynth-RIFE-ncnn-Vulkan](https://github.com/HomeOfVapourSynthEvolution/VapourSynth-RIFE-ncnn-Vulkan)
 - [SwinIR with HolyWu/vs-swinir](https://github.com/HolyWu/vs-swinir)
 - [Sepconv (enhanced) with sniklaus/revisiting-sepconv](https://github.com/sniklaus/revisiting-sepconv/)
 - EGVSR with [Thmen/EGVSR](https://github.com/Thmen/EGVSR)
@@ -64,10 +62,8 @@ Model | ESRGAN | SRVGGNetCompact | Rife | SwinIR | Sepconv | EGVSR | BasicVSR++ 
 ---  | ------- | --------------- | ---- | ------ | ------- | ----- | ---------- | ------- | ------------ | --------- | ---- | ---- | --- | ------ | --- | ------ | ----- | ------ | ---- | ---- | --- | --- 
 CUDA | - | - | yes (4.0-4.12) | [yes](https://github.com/HolyWu/vs-swinir/tree/master/vsswinir) | [yes](http://content.sniklaus.com/resepconv/network-paper.pytorch) | [yes](https://github.com/Thmen/EGVSR/raw/master/pretrained_models/EGVSR_iter420000.pth) | [yes](https://github.com/HolyWu/vs-basicvsrpp/releases/tag/model) | - | [yes](https://drive.google.com/file/d/1OYR1J2GXE90Zu2gVU5xc0t0P_UmKH7ID/view) | [yes](https://drive.google.com/drive/folders/1jAJyBf2qKe2povySwsGXsVMnzVyQzqDD) | - | [yes](https://github.com/zhaohengyuan1/PAN/tree/master/experiments/pretrained_models) | [yes](https://www.dropbox.com/sh/hrewbpedd2cgdp3/AADbEivu0-CKDQcHtKdMNJPJa?dl=0) | [yes](https://drive.google.com/file/d/1dO-ArTLJ4cMZuN6dttIFFMLtp4I2LnSG/view) | [yes](https://drive.google.com/file/d/1psrM4PkPhuM2iCwwVngT0NCtx6xyiqXa/view) | [yes](https://github.com/cszn/SCUNet/blob/main/main_download_pretrained_models.py) | [yes](https://github.com/98mxr/GMFupSS/tree/main/train_log) | [yes](https://drive.google.com/file/d/1s5JJdt5X69AO2E2uuaes17aPwlWIQagG/view) | - | yes ([vanilla](https://drive.google.com/file/d/1AsA7a4HNR4RjCeEmNUJWy5kY3dBC-mru/view) / [wgan](https://drive.google.com/file/d/1GAp9DljP1RCQXz0uu_GNn751NBMEQOUB/view)) | [base](https://drive.google.com/file/d/1BKz8UDAPEt713IVUSZSpzpfz_Fi2Tfd_/view) / [union](https://drive.google.com/file/d/1Mvd1GxkWf-DpfE9OPOtqRM9KNk20kLP3/view) | -
 TensorRT | yes (torch_tensorrt / C++ TRT) | yes (onnx_tensorrt / C++ TRT) [v2](https://github.com/AmusementClub/vs-mlrt/releases/download/model-20211209/RealESRGANv2_v1.7z), [v3](https://github.com/AmusementClub/vs-mlrt/releases/download/model-20211209/RealESRGANv3_v1.7z) | yes | - | - | - | - | [yes (C++ TRT)](https://github.com/AmusementClub/vs-mlrt/releases/download/model-20211209/waifu2x_v3.7z) | - | [yes (C++ TRT)](https://github.com/AmusementClub/vs-mlrt/releases/download/v9.2/models.v9.2.7z) | [yes (C++ TRT)](https://github.com/AmusementClub/vs-mlrt/releases/download/model-20211209/dpir_v3.7z) | - | - | - | - | - | - | - | [yes (C++ TRT)](https://github.com/styler00dollar/VSGAN-tensorrt-docker/releases/tag/models) | - | - | [yes](https://github.com/sunny2109/SAFMN/releases/tag/v0.1.0)
-ncnn | - | yes, but compile yourself ([2x](https://files.catbox.moe/u62vpw.tar)) | [yes (4.0-4.12)](https://github.com/styler00dollar/VapourSynth-RIFE-ncnn-Vulkan/tree/master/models) | - | - | - | - | - | - | - | - | - | - | - | - | - | - | - | - | - | - | -
 
 Some important things:
-- `ncnn` does not work in wsl and that means it doesn't work in Windows currently. `ncnn` will only work if you use docker in linux. Most likely will be removed due to low speed compared to TensorRT.
 - If you are on Windows, install all the latest updates first, otherwise wsl won't work properly. 21H2 minimum.
 - Do not use `webm` video, webm is often broken. It can work, but don't complain about broken output afterwards. I would suggest to render webm into mp4 or mkv.
 - Only use ffmpeg to determine if video is variable framerate (vfr) or not. Other programs do not seem reliable.
@@ -113,8 +109,8 @@ and set a different tag `image: styler00dollar/vsgan_tensorrt:x` prior to runnin
 
 | docker image  | compressed download | extracted container | short description |
 | ------------- | ------------------- | ------------------- | ----------------- |
-| styler00dollar/vsgan_tensorrt:latest | 9gb | 17gb | default latest
-| chin39/vsgan_tensorrt:latest | 9gb | 17gb | default latest without AVX512
+| styler00dollar/vsgan_tensorrt:latest | 10gb | 19gb | default latest (TRT9.2 trtexec, TRT8.6 python)
+| chin39/vsgan_tensorrt:latest | 9gb | 17gb | default latest without AVX512 (TRT8.6, not maintained by myself)
 | styler00dollar/vsgan_tensorrt:minimal | 4gb | 8gb | ffmpeg + mlrt + lsmash
 | styler00dollar/vsgan_tensorrt:deprecated | 23gb | 43gb | old default
 | styler00dollar/vsgan_tensorrt:ffmpeg_trt | 9gb | 20gb | ffmpeg c++ trt inference plugin to use trt engines with ffmpeg directly without vapoursynth
@@ -191,30 +187,131 @@ Small minimalistic example of how to configure inference. If you only want to pr
 ```
 video_path = "test.mkv"
 ```
-and then afterwards edit `inference_config.py`. Small example:
+and then afterwards edit `inference_config.py`. 
+
+Small example for upscaling with TensorRT:
 
 ```python
 import sys
-sys.path.append("/workspace/tensorrt/")
 import vapoursynth as vs
-core = vs.core
-vs_api_below4 = vs.__api_version__.api_major < 4
-core.num_threads = 4
-core.std.LoadPlugin(path="/usr/lib/x86_64-linux-gnu/libffms2.so")
 
+sys.path.append("/workspace/tensorrt/")
+core.std.LoadPlugin(path="/usr/local/lib/libvstrt.so")
+core = vs.core
+core.num_threads = 4
+
+
+def inference_clip(video_path):
+    clip = core.bs.VideoSource(source=video_path)
+    clip = core.resize.Bicubic(
+        clip, format=vs.RGBS, matrix_in_s="709"
+    )  # RGBS means fp32, RGBH means fp16
+
+    # upscaling
+    clip = core.trt.Model(
+        clip,
+        engine_path="/workspace/tensorrt/cugan.engine",  # read readme on how to build engine
+        num_streams=2,
+    )
+
+    clip = core.resize.Bicubic(
+        clip, format=vs.YUV420P8, matrix_s="709"
+    )  # you can also use YUV420P10 for example
+    return clip
+```
+
+Small example for PyTorch interpolation with rife:
+
+```python
+import sys
+import vapoursynth as vs
 from src.rife import RIFE
 from src.vfi_inference import vfi_inference
 
+sys.path.append("/workspace/tensorrt/")
+core = vs.core
+core.num_threads = 4
+
+
 def inference_clip(video_path):
-    clip = core.ffms2.Source(source=video_path, cache=False)
-    clip = vs.core.resize.Bicubic(clip, format=vs.RGBS, matrix_in_s="709")
-    # apply one or multiple models, will be applied in order
-    model_inference = RIFE(scale=1, fastmode=False, ensemble=True, model_version="rife46", fp16=True)
+    clip = core.bs.VideoSource(source=video_path)
+    
+    clip = core.resize.Bicubic(
+        clip, format=vs.RGBS, matrix_in_s="709"
+    )  # RGBS means fp32, RGBH means fp16
+    
+    # interpolation
+    model_inference = RIFE(
+        scale=1, fastmode=False, ensemble=True, model_version="rife46", fp16=True
+    )
     clip = vfi_inference(model_inference=model_inference, clip=clip, multi=2)
-    # return clip
-    clip = vs.core.resize.Bicubic(clip, format=vs.YUV420P8, matrix_s="709")
+
+    clip = core.resize.Bicubic(clip, format=vs.YUV420P8, matrix_s="709")
     return clip
 ```
+
+Advanced example with upscaling + interpolation via TensorRT and model based scene change detection:
+
+```python
+import sys
+import vapoursynth as vs
+from src.vfi_inference import vfi_frame_merger
+from src.scene_detect import scene_detect
+from vsgmfss_fortuna import gmfss_fortuna
+
+sys.path.append("/workspace/tensorrt/")
+core.std.LoadPlugin(path="/usr/local/lib/libvstrt.so")
+core = vs.core
+core.num_threads = 4
+
+
+def inference_clip(video_path):
+    clip = core.bs.VideoSource(source=video_path)
+    clip = core.resize.Bicubic(
+        clip, format=vs.RGBH, matrix_in_s="709"
+    )  # RGBS means fp32, RGBH means fp16
+
+    # detecting scene changes
+    clip_orig = scene_detect(
+        clip,
+        thresh=0.98,
+        onnx_path="/workspace/tensorrt/sc_efficientformerv2_s0_12263_224_CHW_6ch_clamp_softmax_op17_fp16_sim.onnx",
+        resolution=224,
+    )
+
+    # interpolation
+    clip = gmfss_fortuna(
+        clip,
+        num_streams=2,
+        trt=True,
+        factor_num=2,
+        factor_den=1,
+        model=1,
+        ensemble=False,
+        sc=False,  # disabling misc.SCDetect scene change detection, parameter not available in every model
+        trt_cache_path="/workspace/tensorrt/",
+    )
+
+    clip_orig = core.std.Interleave(
+        [clip_orig] * 2
+    ) # 2 means interpolation factor here, just making the original clip 2x in length
+
+    # swaps the frames if scene change is detected
+    clip = vfi_frame_merger(
+        clip_orig, clip
+    ) 
+
+    # upscaling
+    clip = core.trt.Model(
+        clip,
+        engine_path="/workspace/tensorrt/cugan.engine",
+        num_streams=2,
+    )
+
+    clip = core.resize.Bicubic(clip, format=vs.YUV420P8, matrix_s="709")
+    return clip
+```
+
 Then use the commands above to render. For example:
 ```
 vspipe -c y4m inference.py - | ffmpeg -i pipe: example.mkv
@@ -246,62 +343,88 @@ If you are confused, here is a Youtube video showing how to use Python API based
 <div id='deduplicated'/>
 
 ## Deduplicated inference
-Calculate similarity between frames with [HomeOfVapourSynthEvolution/VapourSynth-VMAF](https://github.com/HomeOfVapourSynthEvolution/VapourSynth-VMAF).
+Calculate similarity between frames with [HomeOfVapourSynthEvolution/VapourSynth-VMAF](https://github.com/HomeOfVapourSynthEvolution/VapourSynth-VMAF) and skip similar frames in interpolation tasks. The properties in the clip will then be used to skip similar frames.
+
 ```python
-# requires yuv, convert if it isn't
-clip = vs.core.resize.Bicubic(clip, format=vs.YUV420P8, matrix_s="709")
-# adding metric to clip property
-# 0 = PSNR, 1 = PSNR-HVS, 2 = SSIM, 3 = MS-SSIM, 4 = CIEDE2000
-offs1 = core.std.BlankClip(clip, length=1) + clip[:-1]
-offs1 = core.std.CopyFrameProps(offs1, clip)
-clip = core.vmaf.Metric(clip, offs1, 2)
-# convert to rgbs if needed
-clip = vs.core.resize.Bicubic(clip, format=vs.RGBS, matrix_in_s="709")
+from src.vfi_inference import vfi_frame_merger
+from vsgmfss_fortuna import gmfss_fortuna
+
+# calculate metrics
+def metrics_func(clip):
+    offs1 = core.std.BlankClip(clip, length=1) + clip[:-1]
+    offs1 = core.std.CopyFrameProps(offs1, clip)
+    return core.vmaf.Metric(clip, offs1, 2)
+
+def inference_clip(video_path):
+    clip = core.bs.VideoSource(source=video_path)
+    clip = metrics_func(clip)  # only takes YUV, not RGB
+    clip = core.resize.Bicubic(clip, format=vs.RGBH, matrix_in_s="709")
+    
+    clip_orig = core.std.Interleave([clip] * 2)
+
+    # interpolation
+    clip = gmfss_fortuna(
+        clip,
+        num_streams=2,
+        trt=True,
+        factor_num=2,
+        factor_den=1,
+        model=1,
+        ensemble=False,
+        sc=True,
+        trt_cache_path="/workspace/tensorrt/",
+    )
+
+    # skip frames based on calculated metrics
+    clip = vfi_frame_merger(clip_orig, clip)
+
+    return clip
 ```
-The properties in the clip will then be used to skip similar frames.
+
+There are multiple different metrics that can be used, but be aware that you may need to adjust the threshold metric value in `vfi_inference.py`, since they work differently. SSIM has a maximum of 1 and PSNR has a maximum of infinity. I would recommend leaving the defaults unless you know what you do.
+```python
+# 0 = PSNR, 1 = PSNR-HVS, 2 = SSIM, 3 = MS-SSIM, 4 = CIEDE2000
+return core.vmaf.Metric(clip, offs1, 2)
+```
 
 <div id='scene-change'/>
 
 ## Scene change detection
 
-Scene change detection is implemented in various different ways. To use traditional scene change without ai you can do:
+Scene change detection is implemented in various different ways. To use traditional scene change you can do:
 
 ```python
-clip = core.misc.SCDetect(clip=clip, threshold=0.100)
+clip = core.misc.SCDetect(
+  clip=clip, 
+  threshold=0.100
+)
 ```
-The clip property will then be used in frame interpolation inference.
+The clip property will then be used in frame interpolation inference when you call `vfi_frame_merger`.
 
-Recently I started experimenting in training my own scene change detect models and I used a dataset with 272.016 images (90.884 triplets) which includes everything from animation to real video (vimeo90k + animeinterp + custom data). So these should work on any kind of video.
+Recently I started experimenting in training my own scene change detect models and I used a dataset with 272.016 images (90.884 triplets) which includes everything from animation to real video (vimeo90k + animeinterp + custom data). So these should work on any kind of video. The input images were area downscaled images.
 
 ```python
-clip = scene_detect(clip, model_name="efficientnetv2_b0", thresh=0.98)
+clip = scene_detect(
+    clip,
+    thresh=0.98,
+    onnx_path="path_to_onnx.onnx",
+    resolution=resolution_of_onnx,
+)
 ```
 
 **Warning: Keep in mind that different models may require a different thresh to be good.**
 
-I think that `efficientnetv2_b0` is a good balance between speed and results. It overall did quite good. The other models which are included are not listed in an order. They looked all looked ok, but you would need to test yourself to dertermine an opinion.
+My personal favorites would be `efficientnetv2_b0`, `efficientformerv2_s0` and `swinv2_small` for video interpolation tasks. The rife models mean, that flow gets used as an additional input into the classification model. That should increase stability without major speed decrease. Models that are not linked will be converted later.
 
-My personal favorites would be `efficientnetv2_b0`, `efficientformerv2_s0`, `maxvit_small` and `swinv2_small` for video interpolation tasks. Even if they overdetect a little, the main point is to avoid bad interpolation frames and the detection of bigger differences and scene changes is key because of that. Models will have a hard time discerning if bigger differences are a scene change and handle it in their own way. Some will trigger more and some less.
+Available onnx files:
+- efficientnetv2_b0 (256px) ([fp16](https://github.com/styler00dollar/VSGAN-tensorrt-docker/releases/download/models/sc_efficientnetv2b0_17957_256_CHW_6ch_clamp_softmax_op17_fp16_sim.onnx) [fp32](https://github.com/styler00dollar/VSGAN-tensorrt-docker/releases/download/models/sc_efficientnetv2b0_17957_256_CHW_6ch_clamp_softmax_op17_sim.onnx))
+- efficientnetv2_b0+rife46 (256px) ([fp16](https://github.com/styler00dollar/VSGAN-tensorrt-docker/releases/download/models/sc_efficientnetv2b0+rife46_flow_1362_256_CHW_6ch_clamp_softmax_op17_fp16_sim.onnx) [fp32](https://github.com/styler00dollar/VSGAN-tensorrt-docker/releases/download/models/sc_efficientnetv2b0+rife46_flow_1362_256_CHW_6ch_clamp_softmax_op17_sim.onnx))
+- efficientformerv2_s0 (224px) ([fp16](https://github.com/styler00dollar/VSGAN-tensorrt-docker/releases/download/models/sc_efficientformerv2_s0_12263_224_CHW_6ch_clamp_softmax_op17_fp16_sim.onnx) [fp32](https://github.com/styler00dollar/VSGAN-tensorrt-docker/releases/download/models/sc_efficientformerv2_s0_12263_224_CHW_6ch_clamp_softmax_op17_sim.onnx))
+- efficientformerv2_s0+rife46 (224px) ([fp16](https://github.com/styler00dollar/VSGAN-tensorrt-docker/releases/download/models/sc_efficientformerv2_s0+rife46_flow_84119_224_CHW_6ch_clamp_softmax_op17_fp16.onnx) [fp32](https://github.com/styler00dollar/VSGAN-tensorrt-docker/releases/download/models/sc_efficientformerv2_s0+rife46_flow_84119_224_CHW_6ch_clamp_softmax_op17.onnx))
+- swinv2_small (256px) ([fp16](https://github.com/styler00dollar/VSGAN-tensorrt-docker/releases/download/models/sc_swinv2_small_window16_10412_256_CHW_6ch_clamp_softmax_op17_fp16.onnx) [fp32](https://github.com/styler00dollar/VSGAN-tensorrt-docker/releases/download/models/sc_swinv2_small_window16_10412_256_CHW_6ch_clamp_softmax_op17.onnx))
+- swinv2_small+rife46 (256px) ([fp16](https://github.com/styler00dollar/VSGAN-tensorrt-docker/releases/download/models/sc_swinv2_small_window16+rife46_flow_1814_256_84119_224_CHW_6ch_clamp_softmax_op17_fp16.onnx) [fp32](https://github.com/styler00dollar/VSGAN-tensorrt-docker/releases/download/models/sc_swinv2_small_window16+rife46_flow_1814_256_84119_224_CHW_6ch_clamp_softmax_op17.onnx))
 
-Sidenote: "overdetect" is a bit hard to define with animation. There is no objective way of saying what frames are similar for drawn animation compared to irl videos. With a fast scene, fighting scene, zooming scene or scenes with particle effects covering a lot of the screen bigger differences can happen, but it does not necessarily mean a scene change. What about partial transitions and only partially changing screens? These are based on my opinion.
-
-Model list:
-- efficientnetv2_b0: Good overall
-- efficientnetv2_b0+rife46
-- efficientformerv2_s0: good overall
-- efficientformerv2_s0+rife46
-- maxvit_small: good, but can overdetect at high movement
-- maxvit_small+rife46
-- regnetz_005: good overall
-- repvgg_b0: does barely overdetect, but seems to miss a few frames
-- resnetrs50: a bit hit and miss, but does not overdetect
-- resnetv2_50: might miss a bit, needs lower thresh like 0.9
-- rexnet_100: not too much and not too little, not perfect tho
-- swinv2_small: detects more than efficientnetv2_b0, but detects a bit too much at high movement
-- swinv2_small+rife46
-- TimeSformer: it's alright, but might overdetect a little
-
-Models that I trained but seemed to be bad:
+Other models I trained but are not available due to various reasons:
 - hornet_tiny_7x7
 - renset50
 - STAM
@@ -312,6 +435,14 @@ Models that I trained but seemed to be bad:
 - swsl_resnet18
 - poolformer_m36
 - densenet121
+- TimeSformer
+- maxvit_small
+- maxvit_small+rife46
+- regnetz_005
+- repvgg_b0
+- resnetrs50
+- resnetv2_50
+- rexnet_100
 
 Interesting observations:
 - Applying means/stds seemingly worsened results, despite people doing that as standard practise.
@@ -322,7 +453,34 @@ Comparison to traditional methods:
 - [wwxd](https://github.com/dubhater/vapoursynth-wwxd) and [scxvid](https://github.com/dubhater/vapoursynth-scxvid) suffer from overdetection (at least in drawn animation).
 - The json that [master-of-zen/Av1an](https://github.com/master-of-zen/Av1an) produces with `--sc-only --sc-method standard --scenes test.json` returns too little scene changes. Changing the method does not really influence a lot. Not reliable enough for vfi.
 - I can't be bothered to [Breakthrough/PySceneDetect](https://github.com/Breakthrough/PySceneDetect) get working with vapousynth with FrameEval and by default it only works with video or image sequence as input. I may try in the future, but I don't understand why I cant just input two images.
-- `misc.SCDetect` seemed like the best traditional vapoursynth method that does currently exist, but I thought I could try to improve. It struggles harder with similar colors and tends to skip more changes compared to ai methods.
+- `misc.SCDetect` seemed like the best traditional vapoursynth method that does currently exist, but I thought I could try to improve. It struggles harder with similar colors and tends to skip more changes compared to methods.
+
+Decided to only do scene change inference with ORT with TensorRT backend to keep code small and optimized.
+
+Example usage:
+```python
+from src.vfi_inference import vfi_frame_merger
+from vsgmfss_union import gmfss_union
+
+clip_orig = scene_detect(
+    clip,
+    thresh=0.98,
+    onnx_path="sc_efficientformerv2_s0_12263_224_CHW_6ch_clamp_softmax_op17_fp16_sim.onnx",  # files have resolution in them, its 224 here
+    resolution=224,
+)
+
+clip = gmfss_union(
+    clip,
+    num_streams=2,
+    trt=True,
+    factor_num=2,
+    ensemble=False,
+    sc=False,
+    trt_cache_path="/workspace/tensorrt/",
+)  # any kind of interp
+clip_orig = core.std.Interleave([clip_orig] * 2)  # 2 means interpolation factor here
+clip = vfi_frame_merger(clip_orig, clip)  # swaps the frames if scene change is detected
+```
 
 <div id='vs-mlrt'/>
 
@@ -494,7 +652,6 @@ Warnings:
 - Keep in mind that these benchmarks can get outdated very fast due to rapid code development and configurations.
 - The default is ffmpeg.
 - ModifyFrame is depricated. Trying to use FrameEval everywhere and is used by default.
-- ncnn did a lot of performance enhancements lately, so results may be a bit better.
 - TensorRT docker version and ONNX opset seem to influence speed but that wasn't known for quite some time. I have a hard time pinpointing which TensorRT and ONNX opset was used. Take benchmark as a rough indicator.
 - Colab may change hardware like CPU at any point.
 - Sometimes it takes a very long time to reach the final speed. It can happen that not enough time was waited.
