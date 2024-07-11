@@ -6,13 +6,12 @@ import subprocess
 @click.option("--preprocessed-file", required=True, type=str, help="The preprocessed file.")
 @click.option("--models", required=True, type=str, help="A comma-separated list of upscale model names.")
 @click.option("--color-matrix", required=True, type=str, help="The input color matrix.")
-@click.option("--degrain/--no-degrain", required=True, help="Apply an MDegrain3 filter.")
 @click.option("--encode/--no-encode", required=True, help="Encode the upscale.")
 @click.option("--crf", required=True, type=float, help="The encode CRF.")
 @click.option("--x265-params", required=True, type=str, help="The x265 parameters.")
 @click.option("--output-file", required=True, type=str, help="The output file.")
 
-def upscale(preprocessed_file: str, models: str, color_matrix: str, degrain: bool, encode: bool, crf: float, x265_params: str, output_file: str):
+def upscale(preprocessed_file: str, models: str, color_matrix: str, encode: bool, crf: float, x265_params: str, output_file: str):
     vspipe_arguments = [
         "vspipe",
         "-c", "y4m",
@@ -20,7 +19,6 @@ def upscale(preprocessed_file: str, models: str, color_matrix: str, degrain: boo
         "-a", f"video_path={preprocessed_file}",
         "-a", f"models={models}",
         "-a", f"matrix_in_s={color_matrix}",
-        "-a", f"degrain={degrain}",
         # write to standard output
         "-"
     ]
